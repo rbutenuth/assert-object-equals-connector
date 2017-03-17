@@ -36,13 +36,12 @@ public class AssertObjectEqualsConnector {
      *            The actual value.
      * @return <code>actual</code>
      */
-    @Processor(friendlyName = "Compare objects")
-    public Object equals(Object expected, //
-            @Default("#[payload]") Object actual,
-            @Optional
-            @FriendlyName("Path pattern")
-            Map<String, String> pathOtions
-            ) {
+    @Processor(friendlyName = "Compare Objects")
+    public Object compareObjects(Object expected, //
+            @Default("#[payload]") Object actual, //
+            @Default("#[{'.*':'']") @FriendlyName("Path pattern") Map<String, String> pathOtions,
+            @FriendlyName("Some Strings") List<String> strings,
+            @FriendlyName("yes/no") boolean yesNo) {
         // comparator.compare(new PathState(new Path(), true, true), expected,
         // actual);
         // java.lang.AssertionError

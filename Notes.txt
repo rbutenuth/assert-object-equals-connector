@@ -1,0 +1,26 @@
+icon-sizes:
+
+classic:
+- small: 24x16 pixel
+- large: 48x32 pixel
+
+light:
+- small: 16x16 pixel
+- large: 26x26 pixel
+
+MuleEvent event as parameter injects the current MuleEvent, from there you get access to the message:
+MuleContext context = event.getMuleContext();
+MuleMessage message = event.getMessage();
+
+Working sample:
+
+    <munit:test name="new-test-suiteTest" description="MUnit Test">
+        <set-payload value="#[{'message-key':'message-value'}]" doc:name="Set Payload"/>
+        <assert-object-equals:compare-objects doc:name="Assert Object Equals" yesNo="true" expected-ref="#[['a', 'b', 'c']]">
+            <assert-object-equals:path-otions ref="#[{'path-key':'path-value'}]"/>
+            <assert-object-equals:strings >
+                <assert-object-equals:string>a</assert-object-equals:string>
+                <assert-object-equals:string>b</assert-object-equals:string>
+            </assert-object-equals:strings>
+         </assert-object-equals:compare-objects>
+    </munit:test>
