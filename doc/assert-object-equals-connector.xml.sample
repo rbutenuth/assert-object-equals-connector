@@ -1,0 +1,3 @@
+<!-- BEGIN_INCLUDE(assert-object-equals:greet) -->
+    <assert-object-equals:greet config-ref="" friend="#[map-payload:friend]" />
+<!-- END_INCLUDE(assert-object-equals:greet) -->
