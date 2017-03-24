@@ -22,11 +22,7 @@ public class Path {
 		this.predecessor = predecessor;
 	}
 
-	/**
-	 * @param predecesor Our way to root
-	 * @param key Map key.
-	 */
-	public Path(String key, Path predecessor) {
+	private Path(String key, Path predecessor) {
 		this(predecessor);
 		if (key == null) {
 			throw new IllegalArgumentException("key is null");
@@ -34,7 +30,7 @@ public class Path {
 		this.key = key;
 	}
 
-	public Path(int listIndex, int listSize, Path predecessor) {
+	private Path(int listIndex, int listSize, Path predecessor) {
 		this(predecessor);
 		if (listSize < 0) {
 			throw new ArrayIndexOutOfBoundsException();
