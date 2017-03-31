@@ -14,6 +14,7 @@
 	<classpathentry kind="var" path="M2_REPO/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.jar" sourcepath="M2_REPO/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar" sourcepath="M2_REPO/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.0/commons-lang3-3.0.jar" sourcepath="M2_REPO/org/apache/commons/commons-lang3/3.0/commons-lang3-3.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/mule-core/3.8.0/mule-core-3.8.0.jar" sourcepath="M2_REPO/org/mule/mule-core/3.8.0/mule-core-3.8.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/extensions/mule-extensions-api/1.0.0-alpha-1/mule-extensions-api-1.0.0-alpha-1.jar" sourcepath="M2_REPO/org/mule/extensions/mule-extensions-api/1.0.0-alpha-1/mule-extensions-api-1.0.0-alpha-1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar" sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2-sources.jar"/>
@@ -215,7 +216,6 @@
 	<classpathentry kind="var" path="M2_REPO/net/java/dev/jna/jna/4.0.0/jna-4.0.0.jar" sourcepath="M2_REPO/net/java/dev/jna/jna/4.0.0/jna-4.0.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/net/java/dev/jna/jna-platform/4.0.0/jna-platform-4.0.0.jar" sourcepath="M2_REPO/net/java/dev/jna/jna-platform/4.0.0/jna-platform-4.0.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/mulesoft/cloudhub/cloudhub-client-api/1.7.1-HYDRA/cloudhub-client-api-1.7.1-HYDRA.jar" sourcepath="M2_REPO/com/mulesoft/cloudhub/cloudhub-client-api/1.7.1-HYDRA/cloudhub-client-api-1.7.1-HYDRA-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar" sourcepath="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/mulesoft/cloudhub/cloudhub-rest-model/1.0.2/cloudhub-rest-model-1.0.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/sun/jersey/jersey-json/1.9.1/jersey-json-1.9.1.jar" sourcepath="M2_REPO/com/sun/jersey/jersey-json/1.9.1/jersey-json-1.9.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar" sourcepath="M2_REPO/org/codehaus/jettison/jettison/1.1/jettison-1.1-sources.jar"/>

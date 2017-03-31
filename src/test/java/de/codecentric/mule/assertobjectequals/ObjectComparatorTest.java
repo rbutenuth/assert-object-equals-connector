@@ -64,19 +64,19 @@ public class ObjectComparatorTest {
     @Test
     public void testNullString() {
         Collection<String> diffs = ocEqualMapsOrdered.compare(null, "foo");
-        assertCollectionEquals(diffs, "at , expected is null, actual foo");
+        assertCollectionEquals(diffs, "at '', expected is null, actual foo");
     }
 
     @Test
     public void testStringNull() {
         Collection<String> diffs = ocEqualMapsOrdered.compare("foo", null);
-        assertCollectionEquals(diffs, "at , expected foo, actual is null");
+        assertCollectionEquals(diffs, "at '', expected foo, actual is null");
     }
 
     @Test
     public void testStringStringNotEqual() {
         Collection<String> diffs = ocEqualMapsOrdered.compare("foo", "bar");
-        assertCollectionEquals(diffs, "at , expected foo, but found bar");
+        assertCollectionEquals(diffs, "at '', expected foo, but found bar");
     }
 
     @Test
@@ -101,7 +101,7 @@ public class ObjectComparatorTest {
         List<String> listA = Arrays.asList("a", "b", "c");
         List<String> listB = Arrays.asList("a", "b");
         Collection<String> diffs = ocEqualMapsOrdered.compare(listA, listB);
-        assertCollectionEquals(diffs, "at , expected size 3, actual 2");
+        assertCollectionEquals(diffs, "at '', expected size 3, actual 2");
     }
 
     @Test
@@ -109,7 +109,7 @@ public class ObjectComparatorTest {
         List<String> listA = Arrays.asList("a", "b", "c");
         List<String> listB = Arrays.asList("a", "c", "d");
         Collection<String> diffs = ocEqualMapsOrdered.compare(listA, listB);
-        assertCollectionEquals(diffs, "at [1], expected b, but found c", "at [2], expected c, but found d");
+        assertCollectionEquals(diffs, "at '[1]', expected b, but found c", "at '[2]', expected c, but found d");
     }
 
     @Test
@@ -148,7 +148,7 @@ public class ObjectComparatorTest {
         mapB.put("b", "B");
         assertEmpty(ocContainsMapsUnordered.compare(mapA, mapB));
         Collection<String> diffs = ocEqualMapsOrdered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at , expect key b, actual c");
+        assertCollectionEquals(diffs, "at '', expect key b, actual c");
     }
 
     @Test
@@ -161,9 +161,9 @@ public class ObjectComparatorTest {
         mapB.put("a", "A");
         mapB.put("b", "B");
         Collection<String> diffs = ocEqualMapsUnordered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at , objects missing in actual: c");
+        assertCollectionEquals(diffs, "at '', objects missing in actual: c");
         diffs = ocContainsMapsUnordered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at , objects missing in actual: c");
+        assertCollectionEquals(diffs, "at '', objects missing in actual: c");
     }
 
     @Test
@@ -176,9 +176,9 @@ public class ObjectComparatorTest {
         mapB.put("b", "B");
         mapB.put("c", "C");
         Collection<String> diffs = ocEqualMapsOrdered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at , objects missing in expected: c");
+        assertCollectionEquals(diffs, "at '', objects missing in expected: c");
         diffs = ocEqualMapsUnordered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at , objects missing in expected: c");
+        assertCollectionEquals(diffs, "at '', objects missing in expected: c");
     }
 
     @Test
@@ -204,7 +204,7 @@ public class ObjectComparatorTest {
         mapB.put("a", "A");
         mapB.put("b", "B");
         Collection<String> diffs = ocContainsMapsUnordered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at , objects missing in actual: c");
+        assertCollectionEquals(diffs, "at '', objects missing in actual: c");
     }
 
     @Test
@@ -216,9 +216,9 @@ public class ObjectComparatorTest {
         mapB.put("a", "A");
         mapB.put("b", "CC");
         Collection<String> diffs = ocEqualMapsOrdered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at ['b'], expected B, but found CC");
+        assertCollectionEquals(diffs, "at '['b']', expected B, but found CC");
         diffs = ocContainsMapsUnordered.compare(mapA, mapB);
-        assertCollectionEquals(diffs, "at ['b'], expected B, but found CC");
+        assertCollectionEquals(diffs, "at '['b']', expected B, but found CC");
     }
 
     private void assertEmpty(Collection<?> c) {

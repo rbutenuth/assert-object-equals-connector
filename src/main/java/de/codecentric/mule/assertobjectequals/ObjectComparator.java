@@ -75,11 +75,11 @@ public class ObjectComparator {
             if (state.actual == null) {
                 // ok, null equals null
             } else { // actual != null
-                diffs.add("at " + state.path + ", expected is null, actual " + state.actual);
+                diffs.add("at '" + state.path + "', expected is null, actual " + state.actual);
             }
         } else { // expected != null
             if (state.actual == null) {
-                diffs.add("at " + state.path + ", expected " + state.expected + ", actual is null");
+                diffs.add("at '" + state.path + "', expected " + state.expected + ", actual is null");
             } else { // actual != null
                 compareNonNullObjects(state, diffs);
             }
@@ -91,7 +91,7 @@ public class ObjectComparator {
             if (state.actual instanceof List) {
                 compareLists(state, diffs);
             } else {
-                diffs.add("at " + state.path + ", expected List, but found " + state.actual.getClass().getName());
+                diffs.add("at '" + state.path + "', expected List, but found " + state.actual.getClass().getName());
             }
         } else if (state.expected instanceof Map) {
             if (state.actual instanceof Map) {
@@ -99,7 +99,7 @@ public class ObjectComparator {
             }
         } else {
             if (!state.expected.equals(state.actual)) {
-                diffs.add("at " + state.path + ", expected " + state.expected + ", but found " + state.actual);
+                diffs.add("at '" + state.path + "', expected " + state.expected + ", but found " + state.actual);
             }
         }
     }
@@ -111,7 +111,7 @@ public class ObjectComparator {
         List<Object> actual = (List<Object>) state.actual;
 
         if (expected.size() != actual.size()) {
-            diffs.add("at " + state.path + ", expected size " + expected.size() + ", actual " + actual.size());
+            diffs.add("at '" + state.path + "', expected size " + expected.size() + ", actual " + actual.size());
             return;
         }
         int size = expected.size();
@@ -119,10 +119,10 @@ public class ObjectComparator {
         Iterator<Object> aIter = actual.iterator();
         for (int i = 0; i < size; i++) {
             if (!eIter.hasNext()) {
-                throw new RuntimeException("at " + state.path + ", unexpected end of iteration at index " + i);
+                throw new RuntimeException("at '" + state.path + "', unexpected end of iteration at index " + i);
             }
             if (!aIter.hasNext()) {
-                throw new RuntimeException("at " + state.path + ", unexpected end of iteration at index " + i);
+                throw new RuntimeException("at '" + state.path + "', unexpected end of iteration at index " + i);
             }
             State nextState = state.listEntry(i, size, eIter.next(), aIter.next());
             compare(nextState, diffs);
@@ -155,7 +155,7 @@ public class ObjectComparator {
         Set<Object> keys = new LinkedHashSet<Object>(expected.keySet());
         keys.removeAll(actual.keySet());
         if (!keys.isEmpty()) {
-            diffs.add("at " + state.path + ", objects missing in actual: " + collectionToString(keys));
+            diffs.add("at '" + state.path + "', objects missing in actual: " + collectionToString(keys));
             return true;
         }
         // The other way is only relevant when we *don't* have a contains only
@@ -163,7 +163,7 @@ public class ObjectComparator {
             keys = new LinkedHashSet<Object>(actual.keySet());
             keys.removeAll(expected.keySet());
             if (!keys.isEmpty()) {
-                diffs.add("at " + state.path + ", objects missing in expected: " + collectionToString(keys));
+                diffs.add("at '" + state.path + "', objects missing in expected: " + collectionToString(keys));
                 return true;
             }
         }
@@ -192,15 +192,15 @@ public class ObjectComparator {
         int size = expectedKeys.size();
         for (int i = 0; i < size; i++) {
             if (!expectedIter.hasNext()) {
-                throw new RuntimeException("at " + path + ", unexpected of iteration at index " + i);
+                throw new RuntimeException("at '" + path + "', unexpected of iteration at index " + i);
             }
             if (!actualIter.hasNext()) {
-                throw new RuntimeException("at " + path + ", unexpected  of iteration at index " + i);
+                throw new RuntimeException("at '" + path + "', unexpected  of iteration at index " + i);
             }
             Object eKey = expectedIter.next();
             Object aKey = actualIter.next();
             if (!eKey.equals(aKey)) {
-                diffs.add("at " + path + ", expect key " + eKey + ", actual " + aKey);
+                diffs.add("at '" + path + "', expect key " + eKey + ", actual " + aKey);
                 return true;
             }
         }
