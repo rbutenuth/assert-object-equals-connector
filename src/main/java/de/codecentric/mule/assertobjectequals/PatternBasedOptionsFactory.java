@@ -13,9 +13,12 @@ public class PatternBasedOptionsFactory implements ObjectCompareOptionsFactory {
     
     @Override
     public EnumSet<PathOption> createOptions(EnumSet<PathOption> inherited, Path path) {
-        EnumSet<PathOption> options = EnumSet.copyOf(inherited);
-        
-        return options;
+        for (PathPattern pp : patterns) {
+            if (pp.matches(path)) {
+                return EnumSet.copyOf(pp.getOptions());
+            }
+        }
+        return EnumSet.copyOf(inherited);
     }
 
 
