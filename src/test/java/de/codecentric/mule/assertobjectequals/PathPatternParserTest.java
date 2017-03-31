@@ -39,6 +39,26 @@ public class PathPatternParserTest {
     }
 
     @Test
+    public void leadingSpaceWithQuestionmarkGivesWildcardOne() {
+        String pathAsString = " ?";
+        PathPattern pp = parser.parse(pathAsString);
+        assertEquals(1, pp.size());
+        assertEquals(PatternEntry.PatternEntryType.WILDCARD_ONE, pp.getEntry(0).getType());
+        assertEquals(pathAsString.trim(), pp.toString());
+        assertTrue(pp.getOptions().isEmpty());
+    }
+
+    @Test
+    public void trailingSpaceWithQuestionmarkGivesWildcardOne() {
+        String pathAsString = "? ";
+        PathPattern pp = parser.parse(pathAsString);
+        assertEquals(1, pp.size());
+        assertEquals(PatternEntry.PatternEntryType.WILDCARD_ONE, pp.getEntry(0).getType());
+        assertEquals(pathAsString.trim(), pp.toString());
+        assertTrue(pp.getOptions().isEmpty());
+    }
+
+    @Test
     public void starGivesWildcardAny() {
         String pathAsString = "*";
         PathPattern pp = parser.parse(pathAsString);
@@ -147,13 +167,44 @@ public class PathPatternParserTest {
     }
     
     @Test
-    public void withOptions() {
+    public void pathWithOptions() {
         String pathAsString = "?";
         String optionsAsString = "contains_only_on_maps check_map_order ignore"; 
         PathPattern pp = parser.parse(pathAsString + " " + optionsAsString);
         assertEquals(1, pp.size());
         assertEquals(PatternEntry.PatternEntryType.WILDCARD_ONE, pp.getEntry(0).getType());
         assertEquals(pathAsString, pp.toString());
+        assertTrue(pp.getOptions().contains(PathOption.IGNORE));
+        assertTrue(pp.getOptions().contains(PathOption.CHECK_MAP_ORDER));
+        assertTrue(pp.getOptions().contains(PathOption.CONTAINS_ONLY_ON_MAPS));
+    }
+    
+    @Test
+    public void emptyPathWithOptions() {
+        String pathAsString = "";
+        String optionsAsString = "contains_only_on_maps check_map_order ignore"; 
+        PathPattern pp = parser.parse(pathAsString + " " + optionsAsString);
+        assertEquals(0, pp.size());
+        assertEquals(pathAsString, pp.toString());
+        assertTrue(pp.getOptions().contains(PathOption.IGNORE));
+        assertTrue(pp.getOptions().contains(PathOption.CHECK_MAP_ORDER));
+        assertTrue(pp.getOptions().contains(PathOption.CONTAINS_ONLY_ON_MAPS));
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyPathWithTrailingGarbage() {
+        String pathAsString = "";
+        String optionsAsString = "|"; 
+        parser.parse(pathAsString + " " + optionsAsString);
+    }
+    
+    @Test
+    public void emptyPathWithLeadingSpaceAndOptions() {
+        String pathAsString = " ";
+        String optionsAsString = "contains_only_on_maps check_map_order ignore"; 
+        PathPattern pp = parser.parse(pathAsString + " " + optionsAsString);
+        assertEquals(0, pp.size());
+        assertEquals(pathAsString.trim(), pp.toString());
         assertTrue(pp.getOptions().contains(PathOption.IGNORE));
         assertTrue(pp.getOptions().contains(PathOption.CHECK_MAP_ORDER));
         assertTrue(pp.getOptions().contains(PathOption.CONTAINS_ONLY_ON_MAPS));

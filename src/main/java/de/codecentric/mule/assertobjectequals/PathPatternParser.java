@@ -63,6 +63,21 @@ public class PathPatternParser {
         int getPosition() {
             return position;
         }
+
+        @Override
+        public String toString() {
+            if (eof()) {
+                return "EOF";
+            } else {
+                StringBuilder sb = new StringBuilder(2 * input.length() + 3);
+                sb.append(input).append(System.lineSeparator());
+                for (int i = 0; i < position; i++) {
+                    sb.append(' ');
+                }
+                sb.append('^');
+                return sb.toString();
+            }
+        }
     }
 
     public PathPattern parse(String input) {
@@ -75,7 +90,7 @@ public class PathPatternParser {
     private PatternEntry[] parseEntries(State state) {
         List<PatternEntry> entries = new ArrayList<>();
         skipWhitespace(state);
-        while (!state.eof() && !Character.isWhitespace(state.peek())) {
+        while (!state.eof() && isPathStartCharacter(state.peek())) {
             switch (state.peek()) {
             case '?':
                 entries.add(PatternEntry.createWildcardOne());
@@ -95,6 +110,10 @@ public class PathPatternParser {
             }
         }
         return entries.toArray(new PatternEntry[entries.size()]);
+    }
+
+    private boolean isPathStartCharacter(char ch) {
+        return ch == '?' || ch == '*' || ch == '[';
     }
 
     private PatternEntry listOrMap(State state) {
@@ -148,7 +167,11 @@ public class PathPatternParser {
         EnumSet<PathOption> options = EnumSet.noneOf(PathOption.class);
         while (!state.eof()) {
             String word = readNextWord(state);
-            if (StringUtils.isNotEmpty(word)) {
+            if (StringUtils.isEmpty(word)) {
+                if (!state.eof()) {
+                    throw new IllegalArgumentException("'" + state.peek() + "' is not valid as start of option.");
+                }
+            } else {
                 options.add(stringToOption(word));
             }
         }
