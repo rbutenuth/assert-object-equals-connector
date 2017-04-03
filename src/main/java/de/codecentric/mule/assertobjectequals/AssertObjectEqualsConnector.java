@@ -7,17 +7,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.transform.Source;
-
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.mule.api.annotations.Category;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.param.Default;
-import org.xmlunit.builder.Input;
-import org.xmlunit.input.NormalizedSource;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.diff.DefaultComparisonFormatter;
+import org.xmlunit.diff.Diff;
 
 @Connector(name = "assert-object-equals", friendlyName = "Assert Object Equals", description = "Compares two Java Map/List based structures)")
 @Category(name = "org.mule.tooling.category.munit", description = "MUnit")
@@ -26,30 +25,64 @@ public class AssertObjectEqualsConnector {
     /**
      * Compare two objects. Drill down into {@link Map} and {@link List}, use
      * {@link Object#equals(Object)} for all other classes. <br/>
-     * Automatic conversions on <code>expected</code> and <code>actual</code>
-     * are provided:
-     * <ul>
-     * <li>{@link InputStream} is read/parsed as Json</li>
-     * <li>{@link byte[]} is parsed as Json</li>
-     * <li>{@link String} is parsed as Json when it starts with [ or { (after
-     * <code>trim()</code></li>
-     * </ul>
-     * Remember: Encoding for Json is always UTF8
      *
      * @param expected
-     *            The expected value.
+     *            The expected value. Automatic conversions are provided:
+     *            <ul>
+     *            <li>InputStream is read/parsed as Json</li>
+     *            <li>byte[] is parsed as Json</li>
+     *            <li>String is parsed as Json when it starts with [ or { (after
+     *            <code>trim()</code></li>
+     *            </ul>
+     *            Remember: Encoding for Json is always UTF8
      * @param actual
-     *            The actual value.
+     *            The actual value. Automatic conversions are provided:
+     *            <ul>
+     *            <li>InputStream is read/parsed as Json</li>
+     *            <li>byte[] is parsed as Json</li>
+     *            <li>String is parsed as Json when it starts with [ or { (after
+     *            <code>trim()</code></li>
+     *            </ul>
+     *            Remember: Encoding for Json is always UTF8
      * @param pathOptions
-     *            Options for path patterns to control the comparison.
+     *            Options for path patterns to control the comparison. Syntax of
+     *            one List entry: Zero to <code>n</code> path parts. The parts
+     *            can have the following syntax:
+     *            <ul>
+     *            <li><code>?</code>: Wildcard one, matches one element in a
+     *            path</li>
+     *            <li><code>*</code>: Wildcard any, matches zero to
+     *            <code>n</code> elements in a path</li>
+     *            <li><code>[#]</code>: List wildcard, matches a list entry with
+     *            any index</li>
+     *            <li><code>[0]</code>: Matches a list entry with the given
+     *            number. 0 or positive numbers: Count from beginning, negative
+     *            number: Cound from end (-1 is last element)</li>
+     *            <li><code>['.*']</code>: Matches a map entry where the key
+     *            must match the given regular expression. If you need a ' in
+     *            the expression, just write ''. The example '.*' matches all
+     *            keys.</li>
+     *            </ul>
+     *            A space as separator <br/>
+     *            One or more of the following options (case not relevant):
+     *
+     *            CONTAINS_ONLY_ON_MAPS: The actual value entry set of maps can
+     *            contain more values than the expected set. So you tests do not
+     *            fail when there are more elements than expected in the result.
+     *
+     *            CHECK_MAP_ORDER: The order of map entries is checked. The
+     *            default is to ignore order of map entries.
+     *
+     *            IGNORE: The actual node and its subtree is ignored completely.
+     *
      * @return <code>actual</code>
      */
     @Processor(friendlyName = "Compare Objects")
-    public Object compareObjects(Object expected, //
-            @Default("#[payload]") Object actual, //
+    public Object compareObjects(@FriendlyName("Expected value") Object expected, //
+            @Default("#[payload]") @FriendlyName("Actual value") Object actual, //
             @Default("#[[]]") @FriendlyName("Path patterns+options") List<String> pathOptions) //
 
-            throws JsonProcessingException, IOException {
+            throws Exception {
 
         Object expectedObj = convert2Object(expected);
         Object actualObj = convert2Object(actual);
@@ -71,64 +104,58 @@ public class AssertObjectEqualsConnector {
     }
 
     /**
+     * Compare two XML documents. <br/>
+     * See <a href="https://github.com/xmlunit/user-guide/wiki/">XMLUnit
+     * Wiki</a>} how this works
+     *
      * @param expected
+     *            The expected value, XML as String, InputStream, byte[] or DOM
+     *            tree.
      * @param actual
-     * @return
+     *            The actual value, XML as String, InputStream, byte[] or DOM
+     *            tree.
+     * @param xmlCompareOption
+     *            How to compare the XML documents.
+     *
+     *            IGNORE_COMMENTS: Will remove all comment-Tags
+     *            "<!-- Comment -->" from test- and control-XML before
+     *            comparing.
+     *
+     *            IGNORE_WHITESPACE: Ignore whitespace by removing all empty
+     *            text nodes and trimming the non-empty ones.
+     *
+     *            NORMALIZE_WHITESPACE: Normalize Text-Elements by removing all
+     *            empty text nodes and normalizing the non-empty ones.
+     *
+     * @return <code>actual</code>
      */
     @Processor(friendlyName = "Compare XML")
     public Object compareXml(Object expected, //
             @Default("#[payload]") Object actual, //
-            @Default("#[[]]") @FriendlyName("Path patterns+options") List<String> pathOptions) {
+            @Default("NORMALIZE_WHITESPACE") @FriendlyName("XML compare option") XmlCompareOption xmlCompareOption) {
 
-        // Available wrappers around source:
-        // CommentLessSource
-        // WhitespaceStrippedSource
-        // WhitespaceNormalizedSource
-        // NormalizedSource
+        DiffBuilder diffBuilder = DiffBuilder.compare(expected).withTest(actual);
 
-        Source source = Input.fromFile("file:/..../test.xml").build();
-        //Input.from(object)
-        
-        // DefaultComparisonFormatter
-        
-        final String control = "<a><b attr=\"abc\"></b></a>";
-        final String test = "<a><b attr=\"xyz\"></b></a>";
+        switch (xmlCompareOption) {
+        case IGNORE_COMMENTS:
+            diffBuilder.ignoreComments();
+            break;
+        case IGNORE_WHITESPACE:
+            diffBuilder.ignoreWhitespace();
+            break;
+        case NORMALIZE_WHITESPACE:
+            diffBuilder.normalizeWhitespace();
+            break;
+        default:
+            throw new IllegalArgumentException("I forgot to implement for a new enum constant.");
+        }
 
-        /* https://github.com/xmlunit/user-guide/wiki/DiffBuilder
-         
-        Diff myDiff = DiffBuilder.compare(Input.fromString(control))
-                      .withTest(Input.fromString(test))
-                      .build();
-                      
-        Assert.assertFalse(myDiff.toString(), myDiff.hasDifferences());
-        
-        Diff myDiff = DiffBuilder.compare(control)
-        .withTest(test)
-        .checkForSimilar().checkForIdentical() // [1]
-        .ignoreComments() // [2]
-        .ignoreWhitespace() // [3]
-        .normalizeWhitespace() // [4]
-        .withComparisonController(ComparisonController) // [5]
-        .withComparisonFormatter(comparisonFormatter) // [6]
-        .withComparisonListeners(comparisonListeners) // [7]
-        .withDifferenceEvaluator(differenceEvaluator) // [8]
-        .withDifferenceListeners(comparisonListeners) // [9]
-        .withNodeMatcher(nodeMatcher) // [10]
-        .withAttributeFilter(attributeFilter) // [11]
-        .withNodeFilter(nodeFilter) // [12]
-        .withNamespaceContext(map) // [13]
-        .withDocumentBuilerFactory(factory); // [14]
-        
-        CompareMatcher is better for JUnit, see https://github.com/xmlunit/user-guide/wiki/CompareMatcher
-        assertThat(test, CompareMatcher.isIdenticalTo(control));
-        
-        Xpath contains (geht aber auch direkt mit MEL)
-        
-        final String xml = "<a><b attr=\"abc\"></b></a>";  
-        assertThat(xml, hasXPath("//a/b/@attr", equalTo("abc")));
-        assertThat(xml, hasXPath("count(//a/b/c)", equalTo("0")));
-        */
-        
+        Diff diff = diffBuilder.build();
+
+        if (diff.hasDifferences()) {
+            throw new AssertionError(diff.toString(new DefaultComparisonFormatter()));
+        }
+
         return actual;
     }
 
