@@ -1,3 +1,5 @@
-<!-- BEGIN_INCLUDE(assert-object-equals:greet) -->
-    <assert-object-equals:greet config-ref="" friend="#[map-payload:friend]" />
-<!-- END_INCLUDE(assert-object-equals:greet) -->
+<!-- BEGIN_INCLUDE(assert-object-equals:compare-objects) -->
+        <assert-object-equals:compare-objects expected-ref="#[ { 'key1': {'key2':'value1'} } ]" doc:name="Assert Object Equals">
+            <assert-object-equals:path-options ref="#[[]]"/>
+        </assert-object-equals:compare-objects>
+<!-- END_INCLUDE(assert-object-equals:compare-objects) -->

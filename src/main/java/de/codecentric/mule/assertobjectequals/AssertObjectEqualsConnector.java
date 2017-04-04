@@ -138,13 +138,13 @@ public class AssertObjectEqualsConnector {
 
         switch (xmlCompareOption) {
         case IGNORE_COMMENTS:
-            diffBuilder.ignoreComments();
+            diffBuilder = diffBuilder.ignoreComments();
             break;
         case IGNORE_WHITESPACE:
-            diffBuilder.ignoreWhitespace();
+            diffBuilder = diffBuilder.ignoreWhitespace();
             break;
         case NORMALIZE_WHITESPACE:
-            diffBuilder.normalizeWhitespace();
+            diffBuilder = diffBuilder.normalizeWhitespace();
             break;
         default:
             throw new IllegalArgumentException("I forgot to implement for a new enum constant.");
