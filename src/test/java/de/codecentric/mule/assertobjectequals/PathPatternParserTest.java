@@ -28,6 +28,18 @@ public class PathPatternParserTest {
         assertTrue(pp.getOptions().isEmpty());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void unexpectedEndThrowsException() {
+        String pathAsString = "[";
+        parser.parse(pathAsString);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void unexpectedEndOfMapEntryThrowsException() {
+        String pathAsString = "['foo'bad";
+        parser.parse(pathAsString);
+    }
+
     @Test
     public void questionmarkGivesWildcardOne() {
         String pathAsString = "?";
@@ -86,6 +98,17 @@ public class PathPatternParserTest {
         assertEquals(1, pp.size());
         assertEquals(PatternEntry.PatternEntryType.LIST, pp.getEntry(0).getType());
         assertEquals(42, (int) pp.getEntry(0).getListIndex());
+        assertEquals(pathAsString, pp.toString());
+        assertTrue(pp.getOptions().isEmpty());
+    }
+
+    @Test
+    public void numberGivesListSpecificNegative() {
+        String pathAsString = "[-3]";
+        PathPattern pp = parser.parse(pathAsString);
+        assertEquals(1, pp.size());
+        assertEquals(PatternEntry.PatternEntryType.LIST, pp.getEntry(0).getType());
+        assertEquals(-3, (int) pp.getEntry(0).getListIndex());
         assertEquals(pathAsString, pp.toString());
         assertTrue(pp.getOptions().isEmpty());
     }
@@ -165,11 +188,11 @@ public class PathPatternParserTest {
         assertEquals(pathAsString.trim(), pp.toString());
         assertTrue(pp.getOptions().isEmpty());
     }
-    
+
     @Test
     public void pathWithOptions() {
         String pathAsString = "?";
-        String optionsAsString = "contains_only_on_maps check_map_order ignore"; 
+        String optionsAsString = "contains_only_on_maps check_map_order ignore";
         PathPattern pp = parser.parse(pathAsString + " " + optionsAsString);
         assertEquals(1, pp.size());
         assertEquals(PatternEntry.PatternEntryType.WILDCARD_ONE, pp.getEntry(0).getType());
@@ -178,11 +201,11 @@ public class PathPatternParserTest {
         assertTrue(pp.getOptions().contains(PathOption.CHECK_MAP_ORDER));
         assertTrue(pp.getOptions().contains(PathOption.CONTAINS_ONLY_ON_MAPS));
     }
-    
+
     @Test
     public void emptyPathWithOptions() {
         String pathAsString = "";
-        String optionsAsString = "contains_only_on_maps check_map_order ignore"; 
+        String optionsAsString = "contains_only_on_maps check_map_order ignore";
         PathPattern pp = parser.parse(pathAsString + " " + optionsAsString);
         assertEquals(0, pp.size());
         assertEquals(pathAsString, pp.toString());
@@ -190,18 +213,18 @@ public class PathPatternParserTest {
         assertTrue(pp.getOptions().contains(PathOption.CHECK_MAP_ORDER));
         assertTrue(pp.getOptions().contains(PathOption.CONTAINS_ONLY_ON_MAPS));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void emptyPathWithTrailingGarbage() {
         String pathAsString = "";
-        String optionsAsString = "|"; 
+        String optionsAsString = "|";
         parser.parse(pathAsString + " " + optionsAsString);
     }
-    
+
     @Test
     public void emptyPathWithLeadingSpaceAndOptions() {
         String pathAsString = " ";
-        String optionsAsString = "contains_only_on_maps check_map_order ignore"; 
+        String optionsAsString = "contains_only_on_maps check_map_order ignore";
         PathPattern pp = parser.parse(pathAsString + " " + optionsAsString);
         assertEquals(0, pp.size());
         assertEquals(pathAsString.trim(), pp.toString());
@@ -209,11 +232,11 @@ public class PathPatternParserTest {
         assertTrue(pp.getOptions().contains(PathOption.CHECK_MAP_ORDER));
         assertTrue(pp.getOptions().contains(PathOption.CONTAINS_ONLY_ON_MAPS));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void withBadOptions() {
         String pathAsString = "?";
-        String optionsAsString = "foo"; 
+        String optionsAsString = "foo";
         parser.parse(pathAsString + " " + optionsAsString);
     }
 }

@@ -38,6 +38,7 @@ public class PathPatternParser {
         }
 
         char peek() {
+            assertNotEof();
             return input.charAt(position);
         }
 
@@ -46,9 +47,7 @@ public class PathPatternParser {
         }
 
         char next() {
-            if (eof()) {
-                throw new IllegalStateException("unexpected end of path pattern");
-            }
+            assertNotEof();
             return input.charAt(position++);
         }
 
@@ -58,6 +57,12 @@ public class PathPatternParser {
                         "Expect '" + c + "' at position " + position + " but found '" + peek() + "'");
             }
             next();
+        }
+
+        private void assertNotEof() {
+            if (eof()) {
+                throw new IllegalArgumentException("unexpected end of path pattern");
+            }
         }
 
         int getPosition() {

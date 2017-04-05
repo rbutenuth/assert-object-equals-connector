@@ -46,6 +46,13 @@ public class AssertObjectEqualsConnectorTest {
     }
 
     @Test
+    public void jsonByteArrayObjectEmptyOptions() throws Exception {
+        byte[] expected = "[\"a\", \"b\", \"c\"]".getBytes(StandardCharsets.UTF_8);
+        Object actual = Arrays.asList("a", "b", "c");
+        aoec.compareObjects(expected, actual, new ArrayList<String>());
+    }
+
+    @Test
     public void nullEmptyOptions() throws Exception {
         aoec.compareObjects(null, null, new ArrayList<String>());
     }
