@@ -7,12 +7,23 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>mule-module</packaging>
 	<name>Mule AssertObjectEquals Anypoint Connector</name>
+	<description>A Mule connector for comparing object structures (Map/List) or XML in MUnit tests.</description>
+	<url>https://github.com/rbutenuth/assert-object-equals-connector</url>
 
 	<parent>
 		<groupId>org.mule.tools.devkit</groupId>
 		<artifactId>mule-devkit-parent</artifactId>
 		<version>3.9.0</version>
 	</parent>
+
+	<developers>
+		<developer>
+			<name>Roger Butenuth</name>
+			<email>roger.butenuth@codecentric.de</email>
+			<organization>codecentric AG</organization>
+			<organizationUrl>https://www.codecentric.de</organizationUrl>
+		</developer>
+	</developers>
 
 	<licenses>
 		<license>
@@ -23,6 +34,8 @@
 	</licenses>
 
 	<scm>
+		<connection>scm:git:ssh://github.com/rbutenuth/assert-object-equals-connector.git</connection>
+		<developerConnection>scm:git:ssh://github.com/rbutenuth/assert-object-equals-connector.git</developerConnection>
 		<url>https://github.com/rbutenuth/assert-object-equals-connector</url>
 	</scm>
 
@@ -33,6 +46,42 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -46,4 +95,13 @@
 			<version>2.3.0</version>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>mulesoft-releases</id>
+			<name>MuleSoft Releases Repository</name>
+			<url>http://repository.mulesoft.org/releases/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 </project>
