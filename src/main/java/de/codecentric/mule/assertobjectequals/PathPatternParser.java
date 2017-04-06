@@ -25,13 +25,13 @@ import org.apache.commons.lang3.StringUtils;
  * </ul>
  */
 public class PathPatternParser {
-    private static class State {
+    static class State {
+        final String input;
+        int position;
+
         State(String input) {
             this.input = input;
         }
-
-        final String input;
-        int position;
 
         boolean eof() {
             return position == input.length();

@@ -239,4 +239,18 @@ public class PathPatternParserTest {
         String optionsAsString = "foo";
         parser.parse(pathAsString + " " + optionsAsString);
     }
+
+    @Test
+    public void stateToString() {
+        PathPatternParser.State state = new PathPatternParser.State("huhu");
+        assertEquals("huhu" + System.lineSeparator() + "^", state.toString());
+        state.next();
+        assertEquals("huhu" + System.lineSeparator() + " ^", state.toString());
+        try {
+            state.nextExpected('x');
+            fail("expected exception missing");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Expect 'x' at position 1 but found 'u'", e.getMessage());
+        }
+    }
 }
