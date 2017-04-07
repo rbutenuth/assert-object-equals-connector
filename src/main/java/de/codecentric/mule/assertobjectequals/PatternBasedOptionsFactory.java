@@ -6,11 +6,11 @@ import java.util.EnumSet;
 
 public class PatternBasedOptionsFactory implements ObjectCompareOptionsFactory {
     private Collection<PathPattern> patterns;
-    
+
     public PatternBasedOptionsFactory(Collection<PathPattern> patterns) {
         this.patterns = new ArrayList<>(patterns);
     }
-    
+
     @Override
     public EnumSet<PathOption> createOptions(EnumSet<PathOption> inherited, Path path) {
         for (PathPattern pp : patterns) {
@@ -20,6 +20,5 @@ public class PatternBasedOptionsFactory implements ObjectCompareOptionsFactory {
         }
         return EnumSet.copyOf(inherited);
     }
-
 
 }

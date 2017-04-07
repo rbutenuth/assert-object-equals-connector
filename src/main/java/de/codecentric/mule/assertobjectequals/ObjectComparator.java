@@ -32,7 +32,7 @@ public class ObjectComparator {
             path = new Path();
             this.expected = expected;
             this.actual = actual;
-            options = optionFactory.createOptions(EnumSet.noneOf(PathOption.class), path); 
+            options = optionFactory.createOptions(EnumSet.noneOf(PathOption.class), path);
         }
 
         public State listEntry(int listIndex, int listSize, Object expected, Object actual) {

@@ -24,7 +24,7 @@ public class AssertObjectEqualsConnector {
 
     /**
      * Compare two objects. Drill down into {@link Map} and {@link List}, use
-     * {@link Object#equals(Object)} for all other classes. <br/>
+     * {@link Object#equals(Object)} for all other classes.
      *
      * @param expected
      *            The expected value. Automatic conversions are provided:
@@ -63,8 +63,8 @@ public class AssertObjectEqualsConnector {
      *            the expression, just write ''. The example '.*' matches all
      *            keys.</li>
      *            </ul>
-     *            A space as separator <br/>
-     *            One or more of the following options (case not relevant):
+     *            A space as separator. One or more of the following options
+     *            (case not relevant):
      *
      *            CONTAINS_ONLY_ON_MAPS: The actual value entry set of maps can
      *            contain more values than the expected set. So you tests do not
@@ -74,8 +74,10 @@ public class AssertObjectEqualsConnector {
      *            default is to ignore order of map entries.
      *
      *            IGNORE: The actual node and its subtree is ignored completely.
-     *
+     * 
      * @return <code>actual</code>
+     * @throws Exception
+     *             When comparison fails or on technical problems (e.g. parsing)
      */
     @Processor(friendlyName = "Compare Objects")
     public Object compareObjects(@FriendlyName("Expected value") Object expected, //
@@ -104,9 +106,9 @@ public class AssertObjectEqualsConnector {
     }
 
     /**
-     * Compare two XML documents. <br/>
-     * See <a href="https://github.com/xmlunit/user-guide/wiki/">XMLUnit
-     * Wiki</a>} how this works
+     * Compare two XML documents. See
+     * <a href="https://github.com/xmlunit/user-guide/wiki/">XMLUnit Wiki</a>}
+     * how this works
      *
      * @param expected
      *            The expected value, XML as String, InputStream, byte[] or DOM
