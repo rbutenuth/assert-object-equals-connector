@@ -43,8 +43,8 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:ssh://github.com/rbutenuth/assert-object-equals-connector.git</connection>
-    <developerConnection>scm:git:ssh://github.com/rbutenuth/assert-object-equals-connector.git</developerConnection>
+    <connection>scm:git:https://github.com/rbutenuth/assert-object-equals-connector.git</connection>
+    <developerConnection>scm:git:https://github.com/rbutenuth/assert-object-equals-connector.git</developerConnection>
     <url>https://github.com/rbutenuth/assert-object-equals-connector</url>
     <tag>assert-object-equals-connector-0.0.1</tag>
   </scm>
