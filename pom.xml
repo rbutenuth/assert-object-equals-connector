@@ -169,6 +169,7 @@
   </dependencies>
 
   <repositories>
+    <!-- Mule stuff is not in central, so we need this... -->
     <repository>
       <id>mulesoft-releases</id>
       <name>MuleSoft Releases Repository</name>
