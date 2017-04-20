@@ -32,7 +32,7 @@ public class ObjectComparator {
             path = new Path();
             this.expected = expected;
             this.actual = actual;
-            options = optionFactory.createOptions(EnumSet.noneOf(PathOption.class), path);
+            options = optionFactory.createOptions(null, path);
         }
 
         public State listEntry(int listIndex, int listSize, Object expected, Object actual) {
@@ -51,8 +51,8 @@ public class ObjectComparator {
     }
 
     /**
-     * Compare two objects. Drill down into {@link Map} and {@link List}, use
-     * {@link Object#equals(Object)} for all other classes.
+     * Compare two objects. Drill down into {@link Map} and {@link List}, use {@link Object#equals(Object)} for all
+     * other classes.
      *
      * @param expected
      *            The expected value.
@@ -173,8 +173,7 @@ public class ObjectComparator {
         return false;
     }
 
-    private boolean checkOrder(Path path, Set<Object> expectedKeys, Set<Object> actualKeysOrig,
-            Collection<String> diffs) {
+    private boolean checkOrder(Path path, Set<Object> expectedKeys, Set<Object> actualKeysOrig, Collection<String> diffs) {
         Set<Object> actualKeys = new LinkedHashSet<Object>(actualKeysOrig);
         // Remove all keys which are *not* in expected
         Iterator<Object> actualIter = actualKeys.iterator();
