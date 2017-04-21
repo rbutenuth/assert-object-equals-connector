@@ -25,10 +25,6 @@ The connector can be used for Object structures or XML:
 
 https://travis-ci.org/rbutenuth/assert-object-equals-connector
 
-## Maven generated site
-
-[Maven generated site](https://raw.githubusercontent.com/rbutenuth/assert-object-equals-connector/master/site/index.html)
-
 ## Reporting Issues
 
 We use GitHub:Issues for tracking issues with this connector. You can report new issues at this link https://github.com/rbutenuth/assert-object-equals-connector/issues.
