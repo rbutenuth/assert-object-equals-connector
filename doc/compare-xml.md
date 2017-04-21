@@ -41,4 +41,4 @@ You can select between three modes of comparison:
 "normalized" in this context means all whitespace characters are replaced by space characters and consecutive
 whitespace characters are collapsed.
 
-For a complete example of a test suite see [assert-object-equals-connector.xml](assert-object-equals-connector.xml).
+For a complete example of a test suite see [xml-demos.xml](xml-demos.xml).
