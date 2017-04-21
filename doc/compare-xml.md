@@ -20,7 +20,7 @@ So let's start with a simple example to compare two XML Strings:
 
 ![xml-is-xml](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/doc/images/xml-is-xml.png)
 
-As long as you ignore all the quoting, it's quite simple n XML, too:
+As long as you ignore all the quoting, it's quite simple in XML, too:
 ```
     <assert-object-equals:compare-xml doc:name="xml is xml" 
         expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']"
@@ -39,4 +39,4 @@ You can select between three modes of comparison:
 "normalized" in this context means all whitespace characters are replaced by space characters and consecutive
 whitespace characters are collapsed.
 
-For a complete example of a test suite see [xml-demos.xml](xml-demos.xml).
+For a complete example of the test suite see [xml-demos.xml](xml-demos.xml).

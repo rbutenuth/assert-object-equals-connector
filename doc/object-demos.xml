@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:assert-object-equals="http://www.mulesoft.org/schema/mule/assert-object-equals" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xmlns:mock="http://www.mulesoft.org/schema/mule/mock" 
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/mock http://www.mulesoft.org/schema/mule/mock/current/mule-mock.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+http://www.mulesoft.org/schema/mule/assert-object-equals http://www.mulesoft.org/schema/mule/assert-object-equals/current/mule-assert-object-equals.xsd">
+
+    <munit:config name="munit" doc:name="MUnit configuration"/>
+
+    <munit:test name="compare-strings-success-test" description="MUnit Test">
+        <assert-object-equals:compare-objects expected-ref="#['foo']" actual-ref="#['foo']" doc:name="foo is foo"/>
+        <munit:assert-payload-equals message="should be foo" expectedValue="#['foo']" doc:name="Assert Payload"/>
+    </munit:test>
+    
+    <munit:test name="compare-strings-fail-test" expectException="java.lang.AssertionError" description="MUnit Test">
+        <assert-object-equals:compare-objects expected-ref="#['foo']" actual-ref="#['bar']" doc:name="foo is not bar"/>
+    </munit:test>
+
+    <munit:test name="compare-expected-from-resource-test" description="MUnit Test">
+        <assert-object-equals:compare-objects expected-ref="#[getResource('json/simple-expected.json').asStream()]" actual-ref="#['{&quot;foo&quot;: 42}']" doc:name="foo is foo"/>
+    </munit:test>
+    
+    <munit:test name="compare-person-fail-test" expectException="java.lang.AssertionError" description="MUnit Test">
+        <assert-object-equals:compare-objects 
+            expected-ref="#[getResource('json/person-expected.json').asStream()]" 
+            actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="fails (timestamp)"/>
+    </munit:test>
+    
+    <munit:test name="compare-person-success-1-test" description="MUnit Test">
+        <assert-object-equals:compare-objects 
+            expected-ref="#[getResource('json/person-expected.json').asStream()]" 
+            actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in object)">
+            <assert-object-equals:path-options>
+                <assert-object-equals:path-option>['addresses'][#]['timestamp'] ignore</assert-object-equals:path-option>
+            </assert-object-equals:path-options>
+        </assert-object-equals:compare-objects>
+    </munit:test>
+    
+    <munit:test name="compare-person-success-2-test" description="MUnit Test">
+        <assert-object-equals:compare-objects 
+            expected-ref="#[getResource('json/person-expected.json').asStream()]" 
+            actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in MEL)">
+            <assert-object-equals:path-options ref="#[[&quot;['addresses'][#]['timestamp'] ignore&quot;]]"/>
+        </assert-object-equals:compare-objects>
+    </munit:test>
+    
+    <munit:test name="compare-person-fail-map-order-test" expectException="java.lang.AssertionError" description="MUnit Test">
+        <assert-object-equals:compare-objects 
+            expected-ref="#[getResource('json/person-expected.json').asStream()]" 
+            actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in object)" checkMapOrder="true">
+            <assert-object-equals:path-options>
+                <assert-object-equals:path-option>['addresses'][#]['timestamp'] ignore</assert-object-equals:path-option>
+            </assert-object-equals:path-options>
+        </assert-object-equals:compare-objects>
+    </munit:test>
+    
+</mule>

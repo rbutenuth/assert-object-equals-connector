@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.codecentric.mule.modules</groupId>
@@ -25,6 +26,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <build.plugin.cobertura.version>2.7</build.plugin.cobertura.version>
     <project.scm.id>GitHub</project.scm.id>
+    <dependency.locations.enabled>false</dependency.locations.enabled>
   </properties>
 
   <developers>
@@ -125,6 +127,12 @@
           <maxmem>256m</maxmem>
           <aggregate>false</aggregate>
           <check />
+          <instrumentation>
+            <excludes>
+              <exclude>de/codecentric/mule/assertobjectequals/generated/**</exclude>
+              <exclude>org/mule/tooling/ui/contribution/**</exclude>
+            </excludes>
+          </instrumentation>
         </configuration>
       </plugin>
       <plugin>
