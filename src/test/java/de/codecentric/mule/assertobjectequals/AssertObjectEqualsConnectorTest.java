@@ -108,10 +108,18 @@ public class AssertObjectEqualsConnectorTest {
 
     @Test
     public void xmlNotEqualDueToWhitespace() throws Exception {
-        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a>abba<b></b></a>";
-        String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>abba </b></a>";
+        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>abba</b></a>";
+        String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>ab ba</b></a>";
         expectNotEqualXml(expected, actual, XmlCompareOption.NORMALIZE_WHITESPACE,
-                "Expected child nodelist length '2' but was '1' - comparing <a...> at /a[1] to <a...> at /a[1]");
+                "Expected text value 'abba' but was 'ab ba' - comparing <b ...>abba</b> at /a[1]/b[1]/text()[1] to <b ...>ab ba</b> at /a[1]/b[1]/text()[1]");
+    }
+
+    @Test
+    public void xmlEqualDueToIgnoreAllWhitespace() {
+        // "normalize": Tab and space are equal
+        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>ab ba</b></a>";
+        String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>ab\tba</b></a>";
+        aoec.compareXml(expected, actual, XmlCompareOption.NORMALIZE_WHITESPACE);
     }
 
     @Test

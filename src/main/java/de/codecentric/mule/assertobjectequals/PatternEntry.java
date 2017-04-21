@@ -23,9 +23,8 @@ public class PatternEntry {
 
     /**
      * @param listIndex
-     *            0 or positive value: Count from beginning, negative value:
-     *            count from end (-1 is last), <code>null</code>: match any list
-     *            entry.
+     *            0 or positive value: Count from beginning, negative value: count from end (-1 is last),
+     *            <code>null</code>: match any list entry.
      * @return Created entry.
      */
     public static PatternEntry createList(Integer listIndex) {
@@ -56,8 +55,8 @@ public class PatternEntry {
     }
 
     /**
-     * @return 0 or positive value: Count from beginning, negative value: count
-     *         from end (-1 is last), <code>null</code>: match any list entry.
+     * @return 0 or positive value: Count from beginning, negative value: count from end (-1 is last), <code>null</code>
+     *         : match any list entry.
      */
     public Integer getListIndex() {
         if (type != PatternEntryType.LIST) {

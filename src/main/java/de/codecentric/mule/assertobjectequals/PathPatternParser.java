@@ -8,20 +8,16 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Parses <code>String</code> patterns into a {@link PathPattern}. The
- * <code>String</code> must contain zero to <code>n</code> parts. The parts can
- * have the following syntax:
+ * Parses <code>String</code> patterns into a {@link PathPattern}. The <code>String</code> must contain zero to
+ * <code>n</code> parts. The parts can have the following syntax:
  * <ul>
  * <li><code>?</code>: Wildcard one, matches one element in a path</li>
- * <li><code>*</code>: Wildcard any, matches zero to <code>n</code> elements in
- * a path</li>
+ * <li><code>*</code>: Wildcard any, matches zero to <code>n</code> elements in a path</li>
  * <li><code>[#]</code>: List wildcard, matches a list entry with any index</li>
- * <li><code>[0]</code>: Matches a list entry with the given number. 0 or
- * positive numbers: Count from beginning, negative number: Cound from end (-1
- * is last element)</li>
- * <li><code>['.*']</code>: Matches a map entry where the key must match the
- * given regular expression. If you need a ' in the expression, just write ''.
- * The example '.*' matches all keys.</li>
+ * <li><code>[0]</code>: Matches a list entry with the given number. 0 or positive numbers: Count from beginning,
+ * negative number: Cound from end (-1 is last element)</li>
+ * <li><code>['.*']</code>: Matches a map entry where the key must match the given regular expression. If you need a '
+ * in the expression, just write ''. The example '.*' matches all keys.</li>
  * </ul>
  */
 public class PathPatternParser {
@@ -53,8 +49,7 @@ public class PathPatternParser {
 
         void nextExpected(char c) {
             if (c != peek()) {
-                throw new IllegalArgumentException(
-                        "Expect '" + c + "' at position " + position + " but found '" + peek() + "'");
+                throw new IllegalArgumentException("Expect '" + c + "' at position " + position + " but found '" + peek() + "'");
             }
             next();
         }
@@ -110,8 +105,7 @@ public class PathPatternParser {
                 entries.add(listOrMap(state));
                 break;
             default:
-                throw new IllegalArgumentException(
-                        "Unknown character '" + state.peek() + "' at position " + state.getPosition());
+                throw new IllegalArgumentException("Unknown character '" + state.peek() + "' at position " + state.getPosition());
             }
         }
         return entries.toArray(new PatternEntry[entries.size()]);
@@ -138,8 +132,8 @@ public class PathPatternParser {
                 if (state.peek() == '\'') {
                     sb.append(state.next()); // skip second '
                 } else {
-                    throw new IllegalArgumentException("' must be followed by ' or ], not '" + state.peek()
-                            + "' at position " + state.getPosition());
+                    throw new IllegalArgumentException(
+                            "' must be followed by ' or ], not '" + state.peek() + "' at position " + state.getPosition());
                 }
             } else {
                 sb.append(state.next());

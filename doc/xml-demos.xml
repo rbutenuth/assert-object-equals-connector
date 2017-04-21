@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:assert-object-equals="http://www.mulesoft.org/schema/mule/assert-object-equals" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mock="http://www.mulesoft.org/schema/mule/mock" xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns="http://www.mulesoft.org/schema/mule/core"
+  xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans"
+  
+  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/assert-object-equals http://www.mulesoft.org/schema/mule/assert-object-equals/current/mule-assert-object-equals.xsd
+http://www.mulesoft.org/schema/mule/mock http://www.mulesoft.org/schema/mule/mock/current/mule-mock.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd">
+
+  <munit:config name="munit" doc:name="MUnit configuration" />
+
+  <munit:test name="compare-xml-success-test" description="MUnit Test">
+    <assert-object-equals:compare-xml doc:name="xml is xml" 
+        expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']"
+        actual-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']" />
+    <munit:assert-payload-equals  expectedValue="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']" doc:name="should be still the same xml" />
+  </munit:test>
+
+  <munit:test name="compare-xml-fail-test" expectException="java.lang.AssertionError" description="MUnit Test">
+    <assert-object-equals:compare-xml doc:name="xml is not other xml" 
+        expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;ABBA&lt;/b&gt;&lt;/a&gt;']"
+        actual-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;AB BA&lt;/b&gt;&lt;/a&gt;']" />
+  </munit:test>
+
+  <munit:test name="compare-xml-whitespace-success-test" description="MUnit Test">
+    <assert-object-equals:compare-xml doc:name="xml is not other xml" 
+        expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;AB BA&lt;/b&gt;&lt;/a&gt;']"
+        actual-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;AB    BA&lt;/b&gt;&lt;/a&gt;']" />
+  </munit:test>
+
+  <munit:test name="compare-xml-whitespace-fail-test" expectException="java.lang.AssertionError" description="MUnit Test">
+    <assert-object-equals:compare-xml doc:name="xml is not other xml" 
+        expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;AB BA&lt;/b&gt;&lt;/a&gt;']"
+        actual-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;AB    BA&lt;/b&gt;&lt;/a&gt;']" xmlCompareOption="IGNORE_WHITESPACE"/>
+  </munit:test>
+
+  <munit:test name="compare-xml-comment-success-test" description="MUnit Test">
+    <assert-object-equals:compare-xml doc:name="xml is not other xml" 
+        expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']"
+        actual-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;!-- fancy comment --&gt;&lt;/b&gt;&lt;/a&gt;']" xmlCompareOption="IGNORE_COMMENTS"/>
+  </munit:test>
+
+  <munit:test name="compare-xml-comment-fail-test" expectException="java.lang.AssertionError" description="MUnit Test">
+    <assert-object-equals:compare-xml doc:name="xml is not other xml" 
+        expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']"
+        actual-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;!-- fancy comment --&gt;&lt;/b&gt;&lt;/a&gt;']" />
+  </munit:test>
+
+</mule>

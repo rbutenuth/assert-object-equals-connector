@@ -2,24 +2,31 @@
 
 [Connector description including destination service or application with]
 
-# Mule supported versions
+## Mule supported versions
 Mule 3.8 (tested just this, probably also works with 3.6/3.7)
 
-# CI
+## CI
 
 https://travis-ci.org/rbutenuth/assert-object-equals-connector
 
 
-# Installation
+## Installation
 For beta connectors you can download the source code and build it with devkit to find it available on your local repository. Then you can add it to Studio
 
-For released connectors you can download them from the update site in Anypoint Studio.
-Open Anypoint Studio, go to Help → Install New Software and select Anypoint Connectors Update Site where you’ll find all avaliable connectors.
+For direct installation within AnypointStudio, go to Help -> Install new Software... and add the 
+[Update site](https://raw.githubusercontent.com/rbutenuth/assert-object-equals-connector/master/update-site/)
+to the list of available sites.
 
-# Usage
+When you use Maven: Released versions of the connector are on Maven Central, so you don't need to add a repository.
 
-For information about usage our documentation at https://github.com/rbutenuth/assert-object-equals-connector
+## Usage
 
-# Reporting Issues
+The connector can be used for Object structures or XML:
+
+* [Object structures and JSON](https://github.com/rbutenuth/assert-object-equals-connector/doc/compare-objects.md)
+* [XML](https://github.com/rbutenuth/assert-object-equals-connector/doc/compare-xml.md)
+
+
+## Reporting Issues
 
 We use GitHub:Issues for tracking issues with this connector. You can report new issues at this link https://github.com/rbutenuth/assert-object-equals-connector/issues.

@@ -71,7 +71,7 @@ public class AssertObjectEqualsConnector {
      *
      *            IGNORE: The actual node and its subtree is ignored completely.
      *
-     * @return <code>actual</code>
+     * @return <code>actual</code>, but converted to <code>Object</code> when it had to be parsed.
      * @throws Exception
      *             When comparison fails or on technical problems (e.g. parsing)
      */
@@ -101,7 +101,7 @@ public class AssertObjectEqualsConnector {
             throw new AssertionError(message);
         }
 
-        return actual;
+        return actualObj;
     }
 
     /**
