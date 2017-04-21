@@ -5,11 +5,6 @@
 ## Mule supported versions
 Mule 3.8 (tested just this, probably also works with 3.6/3.7)
 
-## CI
-
-https://travis-ci.org/rbutenuth/assert-object-equals-connector
-
-
 ## Installation
 For beta connectors you can download the source code and build it with devkit to find it available on your local repository. Then you can add it to Studio
 
@@ -26,6 +21,13 @@ The connector can be used for Object structures or XML:
 * [Object structures and JSON](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/doc/compare-objects.md)
 * [XML](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/doc/compare-xml.md)
 
+## CI
+
+https://travis-ci.org/rbutenuth/assert-object-equals-connector
+
+## Maven generated site
+
+[Maven generated site](https://raw.githubusercontent.com/rbutenuth/assert-object-equals-connector/master/site/index.html)
 
 ## Reporting Issues
 
