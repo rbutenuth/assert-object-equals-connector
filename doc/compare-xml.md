@@ -34,9 +34,7 @@ Usually you don't want to compare your XML documents character by character, oth
 You can select between three modes of comparison:
 
 * NORMALIZE_WHITESPACE (Default): Normalize Text-Elements by removing all empty text nodes and normalizing the non-empty ones.
-
 * IGNORE_WHITESPACE: Ignore whitespace by removing all empty text nodes and trimming the non-empty ones.
-
 * IGNORE_COMMENTS: Will remove all comment-Tags "<!-- Comment -->" from test- and control-XML before comparing.
 "normalized" in this context means all whitespace characters are replaced by space characters and consecutive
 whitespace characters are collapsed.
