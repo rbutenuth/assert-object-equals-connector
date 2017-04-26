@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rbutenuth/assert-object-equals-connector.svg?branch=master)](https://travis-ci.org/rbutenuth/assert-object-equals-connector)
+
 # AssertObjectEquals Anypoint Connector
 
 [Connector description including destination service or application with]
