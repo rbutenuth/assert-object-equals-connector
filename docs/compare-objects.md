@@ -129,7 +129,7 @@ The first way to do this is with an embedded object:
 
 You can configure this in the GUI by clicking on the three dots, the popup dialog looks like this:
 
-![Object Builder](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/doc/images/object-builder.png)
+![Object Builder](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/docs/images/object-builder.png)
 
 Another way is to express the list as a MEL expression:
 

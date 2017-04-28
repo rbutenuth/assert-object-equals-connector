@@ -18,7 +18,7 @@ If you have bigger XML documents, place them in `src/test/resources` and load th
 
 So let's start with a simple example to compare two XML Strings:
 
-![xml-is-xml](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/doc/images/xml-is-xml.png)
+![xml-is-xml](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/docs/images/xml-is-xml.png)
 
 As long as you ignore all the quoting, it's quite simple in XML, too:
 ```

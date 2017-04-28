@@ -20,12 +20,16 @@ When you use Maven: Released versions of the connector are on Maven Central, so 
 
 The connector can be used for Object structures or XML:
 
-* [Object structures and JSON](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/doc/compare-objects.md)
-* [XML](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/doc/compare-xml.md)
+* [Object structures and JSON](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/docs/compare-objects.md)
+* [XML](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/docs/compare-xml.md)
 
 ## CI
 
 https://travis-ci.org/rbutenuth/assert-object-equals-connector
+
+## Maven Site
+
+[Site](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/docs/site/index.html)
 
 ## Reporting Issues
 
