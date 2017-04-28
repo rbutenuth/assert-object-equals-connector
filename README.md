@@ -29,7 +29,7 @@ https://travis-ci.org/rbutenuth/assert-object-equals-connector
 
 ## Maven Site
 
-[Site](https://github.com/rbutenuth/assert-object-equals-connector/blob/master/docs/site/index.html)
+[Site](https://rbutenuth.github.io/assert-object-equals-connector/site/index.html)
 
 ## Reporting Issues
 
