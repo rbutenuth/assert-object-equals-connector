@@ -2,8 +2,6 @@
 
 # AssertObjectEquals Anypoint Connector
 
-[Connector description including destination service or application with]
-
 ## Mule supported versions
 Mule 3.8 (tested just this, probably also works with 3.6/3.7)
 
