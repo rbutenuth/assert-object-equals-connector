@@ -2,18 +2,23 @@ package de.codecentric.mule.assertobjectequals;
 
 import static org.junit.Assert.*;
 
+import java.io.InputStream;
+
 import org.junit.Test;
 
 public class XmlTests extends AbstractConnectorTest {
 
     @Test
-    public void xmlEqual() {
+    public void xmlEqual() throws Exception {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b></b></a>";
-        aoec.compareXml(xml, "#[payload]", XmlCompareOption.NORMALIZE_WHITESPACE, createEvent(xml));
+        InputStream actual = string2Stream(xml);
+        InputStream resultStream = (InputStream) aoec.compareXml(xml, "#[payload]", XmlCompareOption.NORMALIZE_WHITESPACE,
+                createEvent(actual));
+        assertEquals(xml, stream2String(resultStream));
     }
 
     @Test
-    public void xmlNotEqualDueToComment() {
+    public void xmlNotEqualDueToComment() throws Exception {
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b></b></a>";
         String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b><!-- Hello, world! --></b></a>";
         expectNotEqualXml(expected, actual, XmlCompareOption.NORMALIZE_WHITESPACE,
@@ -21,7 +26,7 @@ public class XmlTests extends AbstractConnectorTest {
     }
 
     @Test
-    public void xmlNotEqualDueToWhitespace() {
+    public void xmlNotEqualDueToWhitespace() throws Exception {
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>abba</b></a>";
         String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>ab ba</b></a>";
         expectNotEqualXml(expected, actual, XmlCompareOption.NORMALIZE_WHITESPACE,
@@ -29,7 +34,7 @@ public class XmlTests extends AbstractConnectorTest {
     }
 
     @Test
-    public void xmlEqualDueToIgnoreAllWhitespace() {
+    public void xmlEqualDueToIgnoreAllWhitespace() throws Exception {
         // "normalize": Tab and space are equal
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>ab ba</b></a>";
         String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>ab\tba</b></a>";
@@ -37,20 +42,20 @@ public class XmlTests extends AbstractConnectorTest {
     }
 
     @Test
-    public void xmlEqualIgnoreComments() {
+    public void xmlEqualIgnoreComments() throws Exception {
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b></b></a>";
         String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b><!-- Hello, world! --></b></a>";
         aoec.compareXml(expected, "#[payload]", XmlCompareOption.IGNORE_COMMENTS, createEvent(actual));
     }
 
     @Test
-    public void xmlEqualIgnoreWhitespace() {
+    public void xmlEqualIgnoreWhitespace() throws Exception {
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>abba</b></a>";
         String actual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><a><b>abba </b></a>";
         aoec.compareXml(expected, "#[payload]", XmlCompareOption.IGNORE_WHITESPACE, createEvent(actual));
     }
 
-    private void expectNotEqualXml(Object expected, Object actual, XmlCompareOption options, String expectedMessage) {
+    private void expectNotEqualXml(Object expected, Object actual, XmlCompareOption options, String expectedMessage) throws Exception {
         try {
             aoec.compareXml(expected, "#[payload]", options, createEvent(actual));
             fail("AssertionError missing!");

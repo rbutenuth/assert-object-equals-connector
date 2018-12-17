@@ -1,7 +1,12 @@
 package de.codecentric.mule.assertobjectequals;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.mule.api.MuleContext;
@@ -12,6 +17,7 @@ import org.mule.api.el.ExpressionLanguageExtension;
 import org.mule.api.expression.ExpressionManager;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.registry.MuleRegistry;
+import org.mule.api.transformer.DataType;
 import org.mule.el.mvel.MVELExpressionLanguage;
 import org.mule.expression.DefaultExpressionManager;
 
@@ -31,9 +37,9 @@ public class AbstractConnectorTest {
 
     protected MuleEvent createEvent(Object payload) {
         SimpleMock<MuleEvent> eventMock = new SimpleMock<>(MuleEvent.class);
-        SimpleMock<MuleMessage> messageMock = new SimpleMock<>(MuleMessage.class);
-        eventMock.storeResult(messageMock.getMockObject(), "getMessage");
-        messageMock.storeResult(payload, "getPayload");
+        MuleMessage message = new TestMuleMessage();
+        message.setPayload(payload, DataType.OBJECT_DATA_TYPE);
+        eventMock.storeResult(message, "getMessage");
         return eventMock.getMockObject();
     }
 
@@ -63,5 +69,16 @@ public class AbstractConnectorTest {
         SimpleMock<MuleConfiguration> configurationMock = new SimpleMock<>(MuleConfiguration.class);
         configurationMock.storeResult("UTF-8", "getDefaultEncoding");
         return configurationMock.getMockObject();
+    }
+
+    protected InputStream string2Stream(String str) {
+        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+        return new ByteArrayInputStream(bytes);
+    }
+
+    protected String stream2String(InputStream is) throws IOException {
+        byte[] bytes = IOUtils.toByteArray(is);
+        is.close();
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 }

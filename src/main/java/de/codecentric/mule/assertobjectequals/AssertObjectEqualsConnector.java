@@ -88,7 +88,7 @@ public class AssertObjectEqualsConnector {
      * @param event
      *            The {@link MuleEvent}, needed to run the expresion evaluator.
      *
-     * @return <code>actual</code>, but converted to <code>Object</code> when it had to be parsed.
+     * @return The original payload.
      * @throws Exception
      *             When comparison fails or on technical problems (e.g. parsing)
      */
@@ -102,8 +102,11 @@ public class AssertObjectEqualsConnector {
 
             throws Exception {
 
-        ExpressionManager expressionManager = muleContext.getExpressionManager();
         MuleMessage message = event.getMessage();
+        StreamSaver saver = new StreamSaver(event, message.getPayload(), message.getDataType());
+        message.setPayload(saver.createPayloadCopy(), saver.getDataType());
+
+        ExpressionManager expressionManager = muleContext.getExpressionManager();
         Object actual = expressionManager.evaluate(actualExpression, null, message, true);
 
         Object expectedObj = convert2Object(expected);
@@ -123,7 +126,9 @@ public class AssertObjectEqualsConnector {
             throw new AssertionError(messageBuilder);
         }
 
-        return actualObj;
+        // Recreate the payload (which may have been consumed by convert2Object()) and use it as return value.
+        message.setPayload(saver.createPayloadCopy(), saver.getDataType());
+        return message.getPayload();
     }
 
     /**
@@ -145,17 +150,22 @@ public class AssertObjectEqualsConnector {
      *            non-empty ones.
      * @param event
      *            The {@link MuleEvent}, needed to run the expresion evaluator.
-     * @return <code>actual</code>
+     * @return The original payload.
+     * @throws Exception
+     *             When comparison fails or on technical problems (e.g. parsing)
      */
     @Processor(friendlyName = "Compare XML")
     public Object compareXml(Object expected, //
             @Default("#[payload]") @Literal String actualExpression, //
             @Default("NORMALIZE_WHITESPACE") @FriendlyName("XML compare option") XmlCompareOption xmlCompareOption, //
-            MuleEvent event) {
+            MuleEvent event) throws Exception {
+
+        MuleMessage message = event.getMessage();
+        StreamSaver saver = new StreamSaver(event, message.getPayload(), message.getDataType());
+        message.setPayload(saver.createPayloadCopy(), saver.getDataType());
 
         ExpressionManager expressionManager = muleContext.getExpressionManager();
-        MuleMessage message = event.getMessage();
-        String actual = (String) expressionManager.evaluate(actualExpression, null, message, true);
+        Object actual = expressionManager.evaluate(actualExpression, null, message, true);
 
         DiffBuilder diffBuilder = DiffBuilder.compare(expected).withTest(actual);
 
@@ -179,7 +189,9 @@ public class AssertObjectEqualsConnector {
             throw new AssertionError(diff.toString(new DefaultComparisonFormatter()));
         }
 
-        return actual;
+        // Recreate the payload (which may have been consumed by convert2Object()) and use it as return value.
+        message.setPayload(saver.createPayloadCopy(), saver.getDataType());
+        return message.getPayload();
     }
 
     private ObjectComparator createComparator(boolean containsOnlyOnMaps, boolean checkMapOrder, List<String> pathOptionsStrings) {

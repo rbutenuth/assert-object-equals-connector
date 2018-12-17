@@ -2,7 +2,6 @@ package de.codecentric.mule.assertobjectequals;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -22,8 +21,10 @@ public class ObjectTests extends AbstractConnectorTest {
     @Test
     public void streamListEmptyOptions() throws Exception {
         InputStream expected = string2Stream("[\"a\", \"b\", \"c\"]");
-        Object actual = list("a", "b", "c");
-        aoec.compareObjects(expected, "#[payload]", false, false, list(), createEvent(actual));
+        List<String> actual = list("a", "b", "c");
+        @SuppressWarnings("unchecked")
+        List<String> result = (List<String>) aoec.compareObjects(expected, "#[payload]", false, false, list(), createEvent(actual));
+        assertEquals(actual, result);
     }
 
     @Test
@@ -79,9 +80,15 @@ public class ObjectTests extends AbstractConnectorTest {
         expectNotEqual("huhu", null, false, false, list(), "at '', expected huhu, actual is null");
     }
 
-    private InputStream string2Stream(String str) {
-        byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
-        return new ByteArrayInputStream(bytes);
+    @Test
+    public void streamStream() throws Exception {
+        String jsonString = "[\"a\", \"b\", \"c\"]";
+        InputStream expected = string2Stream(jsonString);
+        InputStream actual = string2Stream(jsonString);
+        InputStream result = (InputStream) aoec.compareObjects(expected, "#[payload]", false, false, list(), createEvent(actual));
+        // The result has to be a stream with the original payload
+        String resultString = stream2String(result);
+        assertEquals(jsonString, resultString);
     }
 
     private void expectNotEqual(Object expected, Object actual, boolean containsOnlyOnMaps, boolean checkMapOrder, List<String> pathOptions,
