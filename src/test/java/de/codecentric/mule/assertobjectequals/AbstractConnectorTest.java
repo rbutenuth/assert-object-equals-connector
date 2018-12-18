@@ -21,6 +21,9 @@ import org.mule.api.transformer.DataType;
 import org.mule.el.mvel.MVELExpressionLanguage;
 import org.mule.expression.DefaultExpressionManager;
 
+import de.codecentric.mule.assertobjectequals.util.SimpleMock;
+import de.codecentric.mule.assertobjectequals.util.TestMuleMessage;
+
 public class AbstractConnectorTest {
     protected AssertObjectEqualsConnector aoec;
 

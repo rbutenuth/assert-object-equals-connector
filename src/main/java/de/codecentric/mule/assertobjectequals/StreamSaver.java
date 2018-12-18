@@ -29,7 +29,7 @@ public class StreamSaver {
         OUTPUT_HANDLER {
             @Override
             public Object createPayload(StreamSaver saver) {
-                throw new UnsupportedOperationException("createPayload for OUTPUT_HANDLER");
+                return new ByteArrayBasedOutputHandler(saver.data);
             }
         },
         OTHER {
@@ -58,6 +58,7 @@ public class StreamSaver {
             OutputHandler oh = (OutputHandler) payload;
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             oh.write(event, bos);
+            bos.close();
             data = bos.toByteArray();
         } else {
             type = PayloadType.OTHER;

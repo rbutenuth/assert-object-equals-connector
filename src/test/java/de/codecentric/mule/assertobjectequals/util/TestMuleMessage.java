@@ -1,4 +1,4 @@
-package de.codecentric.mule.assertobjectequals;
+package de.codecentric.mule.assertobjectequals.util;
 
 import java.util.List;
 import java.util.Map;

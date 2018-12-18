@@ -2,6 +2,7 @@ package de.codecentric.mule.assertobjectequals;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -10,12 +11,26 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.mule.api.transport.OutputHandler;
 
 public class ObjectTests extends AbstractConnectorTest {
 
     @Test
     public void allNull() throws Exception {
         aoec.compareObjects(null, "#[payload]", false, false, null, createEvent(null));
+    }
+
+    @Test
+    public void stringOutputHandler() throws Exception {
+        String json = "[\"a\", \"b\", \"c\"]";
+
+        OutputHandler actual = new ByteArrayBasedOutputHandler(json.getBytes(StandardCharsets.UTF_8));
+        OutputHandler result = (OutputHandler) aoec.compareObjects(json, "#[payload]", false, false, list(), createEvent(actual));
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        result.write(null, bos);
+        bos.close();
+        String resultAsString = new String(bos.toByteArray(), StandardCharsets.UTF_8);
+        assertEquals(json, resultAsString);
     }
 
     @Test

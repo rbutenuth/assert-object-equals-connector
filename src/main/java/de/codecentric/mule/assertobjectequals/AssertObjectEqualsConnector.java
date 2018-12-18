@@ -1,5 +1,6 @@
 package de.codecentric.mule.assertobjectequals;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -109,8 +110,8 @@ public class AssertObjectEqualsConnector {
         ExpressionManager expressionManager = muleContext.getExpressionManager();
         Object actual = expressionManager.evaluate(actualExpression, null, message, true);
 
-        Object expectedObj = convert2Object(expected);
-        Object actualObj = convert2Object(actual);
+        Object expectedObj = convert2Object(event, expected);
+        Object actualObj = convert2Object(event, actual);
         ObjectComparator comparator = createComparator(containsOnlyOnMaps, checkMapOrder,
                 pathOptions == null ? new ArrayList<String>() : pathOptions);
         Collection<String> diff = comparator.compare(expectedObj, actualObj);
@@ -167,6 +168,15 @@ public class AssertObjectEqualsConnector {
         ExpressionManager expressionManager = muleContext.getExpressionManager();
         Object actual = expressionManager.evaluate(actualExpression, null, message, true);
 
+        // DiffBuilder handles almost everything, but not MuleSofts OutputHandler
+        if (actual instanceof OutputHandler) {
+            OutputHandler oh = (OutputHandler) actual;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            oh.write(event, bos);
+            bos.close();
+            actual = bos.toByteArray();
+        }
+
         DiffBuilder diffBuilder = DiffBuilder.compare(expected).withTest(actual);
 
         switch (xmlCompareOption) {
@@ -212,11 +222,14 @@ public class AssertObjectEqualsConnector {
         return new ObjectComparator(optionFactory);
     }
 
-    private Object convert2Object(Object value) throws JsonProcessingException, IOException {
+    private Object convert2Object(MuleEvent event, Object value) throws JsonProcessingException, IOException {
         if (value == null) {
             return null;
         } else if (value instanceof OutputHandler) {
-            throw new Error("TODO");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ((OutputHandler) value).write(event, bos);
+            bos.close();
+            return new ObjectMapper().reader(Object.class).readValue(bos.toByteArray());
         } else if (value instanceof InputStream) {
             return new ObjectMapper().reader(Object.class).readValue((InputStream) value);
         } else if (value instanceof byte[]) {

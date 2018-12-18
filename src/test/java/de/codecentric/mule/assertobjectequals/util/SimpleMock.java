@@ -1,4 +1,4 @@
-package de.codecentric.mule.assertobjectequals;
+package de.codecentric.mule.assertobjectequals.util;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
