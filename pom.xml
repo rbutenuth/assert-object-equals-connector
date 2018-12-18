@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.codecentric.mule.modules</groupId>
@@ -7,7 +8,8 @@
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>mule-module</packaging>
 	<name>Mule AssertObjectEquals Anypoint Connector</name>
-	<description>A Mule connector for comparing object structures (Map/List) or XML in MUnit tests.</description>
+	<description>A Mule connector for comparing object structures
+		(Map/List) or XML in MUnit tests.</description>
 	<url>https://github.com/rbutenuth/assert-object-equals-connector</url>
 
 	<parent>
@@ -152,6 +154,16 @@
 					<goals>deploy</goals>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -187,7 +199,7 @@
 	</dependencies>
 
 	<repositories>
-    <!-- Mule stuff is not in central, so we need this... -->
+		<!-- Mule stuff is not in central, so we need this... -->
 		<repository>
 			<id>mulesoft-releases</id>
 			<name>MuleSoft Releases Repository</name>
