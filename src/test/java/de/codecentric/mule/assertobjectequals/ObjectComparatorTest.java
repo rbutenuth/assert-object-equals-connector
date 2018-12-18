@@ -1,7 +1,6 @@
 package de.codecentric.mule.assertobjectequals;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -110,6 +109,14 @@ public class ObjectComparatorTest {
         List<String> listB = Arrays.asList("a", "c", "d");
         Collection<String> diffs = ocEqualMapsOrdered.compare(listA, listB);
         assertCollectionEquals(diffs, "at '[1]', expected b, but found c", "at '[2]', expected c, but found d");
+    }
+
+    @Test
+    public void testListsNotEqualMap() {
+        List<String> list = Arrays.asList("a", "b", "c");
+        Map<String, String> map = new LinkedHashMap<>();
+        Collection<String> diffs = ocEqualMapsOrdered.compare(list, map);
+        assertCollectionEquals(diffs, "at '', expected List, but found java.util.LinkedHashMap");
     }
 
     @Test

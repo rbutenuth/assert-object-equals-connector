@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.mule.api.transformer.DataType;
 import org.mule.api.transport.OutputHandler;
+import org.mule.devkit.api.transformer.TransformingValue;
 
 public class ObjectTests extends AbstractConnectorTest {
 
@@ -25,7 +27,8 @@ public class ObjectTests extends AbstractConnectorTest {
         String json = "[\"a\", \"b\", \"c\"]";
 
         OutputHandler actual = new ByteArrayBasedOutputHandler(json.getBytes(StandardCharsets.UTF_8));
-        OutputHandler result = (OutputHandler) aoec.compareObjects(json, "#[payload]", false, false, list(), createEvent(actual));
+        TransformingValue<Object, DataType<Object>> r = aoec.compareObjects(json, "#[payload]", false, false, list(), createEvent(actual));
+        OutputHandler result = (OutputHandler) r.getValue();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         result.write(null, bos);
         bos.close();
@@ -37,8 +40,10 @@ public class ObjectTests extends AbstractConnectorTest {
     public void streamListEmptyOptions() throws Exception {
         InputStream expected = string2Stream("[\"a\", \"b\", \"c\"]");
         List<String> actual = list("a", "b", "c");
+        TransformingValue<Object, DataType<Object>> r = aoec.compareObjects(expected, "#[payload]", false, false, list(),
+                createEvent(actual));
         @SuppressWarnings("unchecked")
-        List<String> result = (List<String>) aoec.compareObjects(expected, "#[payload]", false, false, list(), createEvent(actual));
+        List<String> result = (List<String>) r.getValue();
         assertEquals(actual, result);
     }
 
@@ -100,7 +105,9 @@ public class ObjectTests extends AbstractConnectorTest {
         String jsonString = "[\"a\", \"b\", \"c\"]";
         InputStream expected = string2Stream(jsonString);
         InputStream actual = string2Stream(jsonString);
-        InputStream result = (InputStream) aoec.compareObjects(expected, "#[payload]", false, false, list(), createEvent(actual));
+        TransformingValue<Object, DataType<Object>> r = aoec.compareObjects(expected, "#[payload]", false, false, list(),
+                createEvent(actual));
+        InputStream result = (InputStream) r.getValue();
         // The result has to be a stream with the original payload
         String resultString = stream2String(result);
         assertEquals(jsonString, resultString);

@@ -51,8 +51,8 @@ public class ObjectComparator {
     }
 
     /**
-     * Compare two objects. Drill down into {@link Map} and {@link List}, use {@link Object#equals(Object)} for all
-     * other classes.
+     * Compare two objects. Drill down into {@link Map} and {@link List}, use {@link Object#equals(Object)} for all other
+     * classes.
      *
      * @param expected
      *            The expected value.
@@ -117,13 +117,7 @@ public class ObjectComparator {
         int size = expected.size();
         Iterator<Object> eIter = expected.iterator();
         Iterator<Object> aIter = actual.iterator();
-        for (int i = 0; i < size; i++) {
-            if (!eIter.hasNext()) {
-                throw new RuntimeException("at '" + state.path + "', unexpected end of iteration at index " + i);
-            }
-            if (!aIter.hasNext()) {
-                throw new RuntimeException("at '" + state.path + "', unexpected end of iteration at index " + i);
-            }
+        for (int i = 0; i < size && eIter.hasNext() && aIter.hasNext(); i++) {
             State nextState = state.listEntry(i, size, eIter.next(), aIter.next());
             compare(nextState, diffs);
         }
@@ -189,13 +183,7 @@ public class ObjectComparator {
         Iterator<Object> expectedIter = expectedKeys.iterator();
         actualIter = actualKeys.iterator();
         int size = expectedKeys.size();
-        for (int i = 0; i < size; i++) {
-            if (!expectedIter.hasNext()) {
-                throw new RuntimeException("at '" + path + "', unexpected of iteration at index " + i);
-            }
-            if (!actualIter.hasNext()) {
-                throw new RuntimeException("at '" + path + "', unexpected  of iteration at index " + i);
-            }
+        for (int i = 0; i < size && expectedIter.hasNext() && actualIter.hasNext(); i++) {
             Object eKey = expectedIter.next();
             Object aKey = actualIter.next();
             if (!eKey.equals(aKey)) {

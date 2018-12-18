@@ -23,7 +23,10 @@ import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Literal;
 import org.mule.api.expression.ExpressionManager;
+import org.mule.api.transformer.DataType;
 import org.mule.api.transport.OutputHandler;
+import org.mule.devkit.api.transformer.DefaultTranformingValue;
+import org.mule.devkit.api.transformer.TransformingValue;
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.diff.DefaultComparisonFormatter;
 import org.xmlunit.diff.Diff;
@@ -93,8 +96,9 @@ public class AssertObjectEqualsConnector {
      * @throws Exception
      *             When comparison fails or on technical problems (e.g. parsing)
      */
+    @SuppressWarnings("unchecked")
     @Processor(friendlyName = "Compare Objects")
-    public Object compareObjects(@FriendlyName("Expected value") Object expected, //
+    public TransformingValue<Object, DataType<Object>> compareObjects(@FriendlyName("Expected value") Object expected, //
             @Default("#[payload]") @FriendlyName("Actual value") @Literal String actualExpression, //
             @Default("false") @FriendlyName("Contains only on maps") boolean containsOnlyOnMaps, //
             @Default("false") @FriendlyName("Check map order") boolean checkMapOrder, //
@@ -128,8 +132,7 @@ public class AssertObjectEqualsConnector {
         }
 
         // Recreate the payload (which may have been consumed by convert2Object()) and use it as return value.
-        message.setPayload(saver.createPayloadCopy(), saver.getDataType());
-        return message.getPayload();
+        return new DefaultTranformingValue<Object, Object>(saver.createPayloadCopy(), (DataType<Object>) saver.getDataType());
     }
 
     /**
@@ -155,8 +158,9 @@ public class AssertObjectEqualsConnector {
      * @throws Exception
      *             When comparison fails or on technical problems (e.g. parsing)
      */
+    @SuppressWarnings("unchecked")
     @Processor(friendlyName = "Compare XML")
-    public Object compareXml(Object expected, //
+    public TransformingValue<Object, DataType<Object>> compareXml(Object expected, //
             @Default("#[payload]") @Literal String actualExpression, //
             @Default("NORMALIZE_WHITESPACE") @FriendlyName("XML compare option") XmlCompareOption xmlCompareOption, //
             MuleEvent event) throws Exception {
@@ -200,8 +204,7 @@ public class AssertObjectEqualsConnector {
         }
 
         // Recreate the payload (which may have been consumed by convert2Object()) and use it as return value.
-        message.setPayload(saver.createPayloadCopy(), saver.getDataType());
-        return message.getPayload();
+        return new DefaultTranformingValue<Object, Object>(saver.createPayloadCopy(), (DataType<Object>) saver.getDataType());
     }
 
     private ObjectComparator createComparator(boolean containsOnlyOnMaps, boolean checkMapOrder, List<String> pathOptionsStrings) {
