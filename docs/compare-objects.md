@@ -8,8 +8,9 @@ a meaningful `equals()` methods, but for this you don't need this connector).
 The actual value and the comparison value (called expected) can be provided as object structure or in one of the follogin ways:
 * InputStream
 * byte[]
+* OutputHandler (returned by DataWeav with mode="deferred")
 * String starting with `[` or `{`
-All these will be converted to an object structure by `org.codehaus.jackson.map.ObjectMapper`.
+All these will be converted to an object structure by `org.codehaus.jackson.map.ObjectMapper`. Since version 1.0.0 the operation does no longer return the parsed object, it now returns the input object (in case of InputStream/OutputHandler: A copy because the stream has to be read to do the comparison).
 
 The test for equality will drill down the object structure:
 * `null` equals `null`
