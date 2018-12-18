@@ -22,6 +22,7 @@ public class PatternBasedOptionsFactoryTest {
         EnumSet<PathOption> options = f.createOptions(EnumSet.noneOf(PathOption.class), new Path());
         assertEquals(1, options.size());
         assertTrue(options.contains(PathOption.CHECK_MAP_ORDER));
+        assertEquals(EnumSet.noneOf(PathOption.class), f.getRootOptions());
     }
 
     @Test

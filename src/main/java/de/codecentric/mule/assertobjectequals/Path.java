@@ -16,16 +16,13 @@ public class Path {
     }
 
     private Path(Path predecessor) {
-        if (predecessor == null) {
-            throw new NullPointerException("predessor is null");
-        }
         this.predecessor = predecessor;
     }
 
     private Path(String key, Path predecessor) {
         this(predecessor);
         if (key == null) {
-            throw new IllegalArgumentException("key is null");
+            throw new NullPointerException("key is null");
         }
         this.key = key;
     }
@@ -33,7 +30,7 @@ public class Path {
     private Path(int listIndex, int listSize, Path predecessor) {
         this(predecessor);
         if (listSize < 0) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new IllegalArgumentException();
         }
         if (listIndex < 0 || listIndex >= listSize) {
             throw new IllegalArgumentException("Illegal index: " + listIndex);
@@ -44,7 +41,7 @@ public class Path {
 
     /**
      * Create a new path based on this with a list index.
-     * 
+     *
      * @param listIndex
      *            The index, should start at 0.
      * @param listSize
@@ -57,7 +54,7 @@ public class Path {
 
     /**
      * Create a new path based on this with a map key.
-     * 
+     *
      * @param key
      *            The map key.
      * @return Created entry

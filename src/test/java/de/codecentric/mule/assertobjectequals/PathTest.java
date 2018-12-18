@@ -40,4 +40,28 @@ public class PathTest {
         assertEquals("[42]['bar']", p.toString());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void nullKey() {
+        new Path().mapEntry(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void negativeListSize() {
+        new Path().listEntry(0, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void listIndexLessThanZeroSize() {
+        new Path().listEntry(-1, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void listIndexOutOfRange() {
+        new Path().listEntry(1, 1);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void rootHasNoPredecessor() {
+        new Path().getPredecessor();
+    }
 }
