@@ -2,10 +2,8 @@
 
 # AssertObjectEquals Anypoint Connector
 
-[Connector description including destination service or application with]
-
 ## Mule supported versions
-Mule 3.8 (tested just this, probably also works with 3.6/3.7)
+Mule 3.8/3.9 (tested just this, probably also works with 3.6/3.7)
 
 ## Installation
 For beta connectors you can download the source code and build it with devkit to find it available on your local repository. Then you can add it to Studio
