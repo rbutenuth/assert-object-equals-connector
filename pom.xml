@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.codecentric.mule.modules</groupId>
 	<artifactId>assert-object-equals-connector</artifactId>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>mule-module</packaging>
 	<name>Mule AssertObjectEquals Anypoint Connector</name>
 	<description>A Mule connector for comparing object structures (Map/List) or XML in MUnit tests.</description>
@@ -48,7 +48,7 @@
 		<connection>scm:git:https://github.com/rbutenuth/assert-object-equals-connector.git</connection>
 		<developerConnection>scm:git:https://github.com/rbutenuth/assert-object-equals-connector.git</developerConnection>
 		<url>https://github.com/rbutenuth/assert-object-equals-connector</url>
-		<tag>assert-object-equals-connector-0.0.5</tag>
+		<tag>assert-object-equals-connector-1.0.0</tag>
 	</scm>
 
 	<distributionManagement>
