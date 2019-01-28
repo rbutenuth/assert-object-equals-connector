@@ -108,7 +108,7 @@ Our first try will throw an `AssertionError` because of different timestamp valu
 <munit:test name="compare-person-fail-test" expectException="java.lang.AssertionError" description="MUnit Test">
     <assert-object-equals:compare-objects 
         expected-ref="#[getResource('json/person-expected.json').asStream()]" 
-        actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="foo is foo"/>
+        actualExpression="#[getResource('json/person-actual.json').asStream()]" doc:name="foo is foo"/>
 </munit:test>
 ```
 I marked the exception as expected, so the test itself will be green. (Nobody likes red bars...)
@@ -120,7 +120,7 @@ The first way to do this is with an embedded object:
     <munit:test name="compare-person-success-1-test" description="MUnit Test">
         <assert-object-equals:compare-objects 
             expected-ref="#[getResource('json/person-expected.json').asStream()]" 
-            actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in object)">
+            actualExpression="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in object)">
             <assert-object-equals:path-options>
                 <assert-object-equals:path-option>['addresses'][#]['timestamp'] ignore</assert-object-equals:path-option>
             </assert-object-equals:path-options>
@@ -138,7 +138,7 @@ Another way is to express the list as a MEL expression:
     <munit:test name="compare-person-success-2-test" description="MUnit Test">
         <assert-object-equals:compare-objects 
             expected-ref="#[getResource('json/person-expected.json').asStream()]" 
-            actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in MEL)">
+            actualExpression="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in MEL)">
             <assert-object-equals:path-options ref="#[[&quot;['addresses'][#]['timestamp'] ignore&quot;]]"/>
         </assert-object-equals:compare-objects>
     </munit:test>
@@ -150,7 +150,7 @@ How can we fail in a different way? Activate Map order checking:
     <munit:test name="compare-person-fail-map-order-test" expectException="java.lang.AssertionError" description="MUnit Test">
         <assert-object-equals:compare-objects 
             expected-ref="#[getResource('json/person-expected.json').asStream()]" 
-            actual-ref="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in object)" checkMapOrder="true">
+            actualExpression="#[getResource('json/person-actual.json').asStream()]" doc:name="success (options in object)" checkMapOrder="true">
             <assert-object-equals:path-options>
                 <assert-object-equals:path-option>['addresses'][#]['timestamp'] ignore</assert-object-equals:path-option>
             </assert-object-equals:path-options>
