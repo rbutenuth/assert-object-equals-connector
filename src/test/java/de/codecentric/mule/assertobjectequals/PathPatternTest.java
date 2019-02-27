@@ -10,6 +10,18 @@ import org.junit.Test;
 public class PathPatternTest {
     private EnumSet<PathOption> options = EnumSet.noneOf(PathOption.class);
 
+    @Test(expected = IllegalStateException.class)
+    public void listPatternEntryGetKeyPatternFails() {
+        PatternEntry pe = PatternEntry.createList(Integer.valueOf(1));
+        pe.getKeyPattern();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void keyPatternEntryGetListFails() {
+        PatternEntry pe = PatternEntry.createMap(Pattern.compile("foo"));
+        pe.getListIndex();
+    }
+
     @Test
     public void emptyPathMatchesEmptyPattern() {
         PathPattern pp = new PathPattern(new PatternEntry[0], options);

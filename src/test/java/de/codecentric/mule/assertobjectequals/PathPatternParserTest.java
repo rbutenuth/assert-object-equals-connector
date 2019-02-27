@@ -242,12 +242,14 @@ public class PathPatternParserTest {
 
     @Test
     public void stateToString() {
-        PathPatternParser.State state = new PathPatternParser.State("huhu");
-        assertEquals("huhu" + System.lineSeparator() + "^", state.toString());
-        state.next();
-        assertEquals("huhu" + System.lineSeparator() + " ^", state.toString());
+        PathPatternParser.State state1 = new PathPatternParser.State("");
+        assertEquals("EOF", state1.toString());
+        PathPatternParser.State state2 = new PathPatternParser.State("huhu");
+        assertEquals("huhu" + System.lineSeparator() + "^", state2.toString());
+        state2.next();
+        assertEquals("huhu" + System.lineSeparator() + " ^", state2.toString());
         try {
-            state.nextExpected('x');
+            state2.nextExpected('x');
             fail("expected exception missing");
         } catch (IllegalArgumentException e) {
             assertEquals("Expect 'x' at position 1 but found 'u'", e.getMessage());

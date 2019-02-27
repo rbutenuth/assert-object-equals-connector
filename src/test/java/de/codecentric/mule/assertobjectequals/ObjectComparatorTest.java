@@ -179,6 +179,8 @@ public class ObjectComparatorTest {
         assertCollectionEquals(diffs, "at '', objects missing in actual: c");
         diffs = ocContainsMapsUnordered.compare(mapA, mapB);
         assertCollectionEquals(diffs, "at '', objects missing in actual: c");
+        diffs = ocEqualMapsOrdered.compare(mapA, mapB);
+        assertCollectionEquals(diffs, "at '', objects missing in actual: c");
     }
 
     @Test
