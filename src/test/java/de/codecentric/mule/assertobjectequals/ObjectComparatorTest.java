@@ -120,6 +120,14 @@ public class ObjectComparatorTest {
     }
 
     @Test
+    public void testMapNotEqualList() {
+        List<String> list = Arrays.asList("a", "b", "c");
+        Map<String, String> map = new LinkedHashMap<>();
+        Collection<String> diffs = ocEqualMapsOrdered.compare(map, list);
+        assertCollectionEquals(diffs, "at '', expected Map, but found java.util.Arrays$ArrayList");
+    }
+
+    @Test
     public void testEmptyMapsEqual() {
         Map<String, String> mapA = new LinkedHashMap<>();
         Map<String, String> mapB = new LinkedHashMap<>();

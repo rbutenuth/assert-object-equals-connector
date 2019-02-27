@@ -96,6 +96,8 @@ public class ObjectComparator {
         } else if (state.expected instanceof Map) {
             if (state.actual instanceof Map) {
                 compareMaps(state, diffs);
+            } else {
+                diffs.add("at '" + state.path + "', expected Map, but found " + state.actual.getClass().getName());
             }
         } else {
             if (!state.expected.equals(state.actual)) {
