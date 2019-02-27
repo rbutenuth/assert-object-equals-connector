@@ -24,7 +24,7 @@ As long as you ignore all the quoting, it's quite simple in XML, too:
 ```
     <assert-object-equals:compare-xml doc:name="xml is xml" 
         expected-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']"
-        actual-ref="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']" />
+        actualExpression="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;']" />
 ```
 
 ## Handling whitespace and comments
