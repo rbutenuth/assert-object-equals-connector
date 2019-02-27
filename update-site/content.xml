@@ -2,23 +2,23 @@
 <?metadataRepository version='1.1.0'?>
 <repository name='file:/C:/java/mule/workspace/assert-object-equals-connector/target/update-site/ - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1545162899777'/>
+    <property name='p2.timestamp' value='1551291931448'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <units size='4'>
-    <unit id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' version='1.0.0.201812182054' singleton='false'>
-      <update id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' range='[0.0.0,1.0.0.201812182054)' severity='0'/>
+    <unit id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' version='1.0.1.201902271925' singleton='false'>
+      <update id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' range='[0.0.0,1.0.1.201902271925)' severity='0'/>
       <properties size='3'>
         <property name='org.eclipse.equinox.p2.name' value='Assert Object Equals Connector (Mule 3.5.0+)'/>
         <property name='org.eclipse.equinox.p2.provider' value='Mulesoft, Inc.'/>
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
       <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' version='1.0.0.201812182054'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' version='1.0.1.201902271925'/>
       </provides>
       <requires size='2'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' range='[1.0.0.201812182054,1.0.0.201812182054]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.jar' range='[1.0.0.201812182054,1.0.0.201812182054]'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' range='[1.0.1.201902271925,1.0.1.201902271925]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.jar' range='[1.0.1.201902271925,1.0.1.201902271925]'>
           <filter>
             (org.eclipse.update.install.features=true)
           </filter>
@@ -31,51 +31,34 @@
         </license>
       </licenses>
     </unit>
-    <unit id='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.0.201812182054'>
-      <update id='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' range='[0.0.0,1.0.0.201812182054)' severity='0'/>
-      <properties size='1'>
-        <property name='org.eclipse.equinox.p2.name' value='Assert Object Equals'/>
+    <unit id='file:/C:/java/mule/workspace/assert-object-equals-connector/target/classes/category.xml.de.codecentric.mule.modules' version='1.0.0.2-1cKMytB7735K377G5K7C'>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Community'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
       </properties>
-      <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.0.201812182054'/>
-        <provided namespace='osgi.bundle' name='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.0.201812182054'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='file:/C:/java/mule/workspace/assert-object-equals-connector/target/classes/category.xml.de.codecentric.mule.modules' version='1.0.0.2-1cKMytB7735K377G5K7C'/>
       </provides>
-      <requires size='3'>
-        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.mule.tooling.core' range='1.0.0'/>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' range='[1.0.1.201902271925,1.0.1.201902271925]'/>
       </requires>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.0.201812182054'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='2'>
-          <instruction key='zipped'>
-            true
-          </instruction>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: org.mule.tooling.ui.contribution.assert-object-equals.3.5.0;singleton:=true&#xA;Bundle-Version: 1.0.0.201812182054
-          </instruction>
-        </instructions>
-      </touchpointData>
+      <touchpoint id='null' version='0.0.0'/>
     </unit>
-    <unit id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.jar' version='1.0.0.201812182054'>
+    <unit id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.jar' version='1.0.1.201902271925'>
       <properties size='2'>
         <property name='org.eclipse.equinox.p2.name' value='Assert Object Equals Connector (Mule 3.5.0+)'/>
         <property name='org.eclipse.equinox.p2.provider' value='Mulesoft, Inc.'/>
       </properties>
       <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.jar' version='1.0.0.201812182054'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.jar' version='1.0.1.201902271925'/>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
-        <provided namespace='org.eclipse.update.feature' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0' version='1.0.0.201812182054'/>
+        <provided namespace='org.eclipse.update.feature' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0' version='1.0.1.201902271925'/>
       </provides>
       <filter>
         (org.eclipse.update.install.features=true)
       </filter>
       <artifacts size='1'>
-        <artifact classifier='org.eclipse.update.feature' id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0' version='1.0.0.201812182054'/>
+        <artifact classifier='org.eclipse.update.feature' id='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0' version='1.0.1.201902271925'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
@@ -91,18 +74,35 @@
         </license>
       </licenses>
     </unit>
-    <unit id='file:/C:/java/mule/workspace/assert-object-equals-connector/target/classes/category.xml.de.codecentric.mule.modules' version='1.0.0.2--cKMytB7735I575I73CA'>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Community'/>
-        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+    <unit id='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.1.201902271925'>
+      <update id='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' range='[0.0.0,1.0.1.201902271925)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='Assert Object Equals'/>
       </properties>
-      <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='file:/C:/java/mule/workspace/assert-object-equals-connector/target/classes/category.xml.de.codecentric.mule.modules' version='1.0.0.2--cKMytB7735I575I73CA'/>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.1.201902271925'/>
+        <provided namespace='osgi.bundle' name='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.1.201902271925'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
       </provides>
-      <requires size='1'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.mule.tooling.ui.extension.assert-object-equals-connector.3.5.0.feature.group' range='[1.0.0.201812182054,1.0.0.201812182054]'/>
+      <requires size='3'>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.mule.tooling.core' range='1.0.0'/>
       </requires>
-      <touchpoint id='null' version='0.0.0'/>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.mule.tooling.ui.contribution.assert-object-equals.3.5.0' version='1.0.1.201902271925'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.mule.tooling.ui.contribution.assert-object-equals.3.5.0;singleton:=true&#xA;Bundle-Version: 1.0.1.201902271925
+          </instruction>
+        </instructions>
+      </touchpointData>
     </unit>
   </units>
 </repository>
