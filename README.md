@@ -4,6 +4,7 @@
 
 ## Mule supported versions
 Mule 3.8/3.9 (tested just this, probably also works with 3.6/3.7)
+In case you are working with Mule 4.x, have a look [here](https://gitlab.codecentric.de/danijel.dragicevic/assert-object-equals-module), there you find a version suitable for Mule 4.
 
 ## Installation
 For beta connectors you can download the source code and build it with devkit to find it available on your local repository. Then you can add it to Studio
